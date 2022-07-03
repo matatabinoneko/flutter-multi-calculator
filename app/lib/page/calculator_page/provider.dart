@@ -1,5 +1,6 @@
 import 'model.dart';
 import 'notifier.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 
@@ -14,7 +15,3 @@ final calculatorListProvider =
 final calculatorHeightSizeProvider =
     StateNotifierProvider<CalculatorHeightSizeNotifier, double>(
         (ref) => CalculatorHeightSizeNotifier());
-
-final calculatorButtonHeightProvider =
-    StateNotifierProvider<CalculatorButtonHeightNotifier, double>(
-        (ref) => CalculatorButtonHeightNotifier());

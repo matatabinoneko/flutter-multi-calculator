@@ -1,9 +1,10 @@
 import 'package:calculator/core/uuid.dart';
-import 'package:calculator/page/calculator_page/provider.dart';
 import 'package:calculator/static/size.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
+
 import 'model.dart';
+import 'provider.dart';
 
 class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
   Ref ref;
@@ -24,6 +25,19 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
       state = state
           .where((CalculatorModel calculator) => calculator.id != id)
           .toList();
+    }
+  }
+
+  String getDisplayResult(int index) {
+    final result = state[index].result.toStringAsPrecision(5);
+    final operator = state[index].operator;
+    final inputNumber = state[index].inputNumber;
+    if (inputNumber != "") {
+      return inputNumber;
+    } else if (operator == "") {
+      return result;
+    } else {
+      return "$result $operator";
     }
   }
 
@@ -165,14 +179,6 @@ class SelectedIdNotifier extends StateNotifier<String> {
 
 class CalculatorHeightSizeNotifier extends StateNotifier<double> {
   CalculatorHeightSizeNotifier() : super(SizeConfig.minCalculatorHeight);
-
-  void setState(double state) {
-    this.state = state;
-  }
-}
-
-class CalculatorButtonHeightNotifier extends StateNotifier<double> {
-  CalculatorButtonHeightNotifier() : super(0);
 
   void setState(double state) {
     this.state = state;

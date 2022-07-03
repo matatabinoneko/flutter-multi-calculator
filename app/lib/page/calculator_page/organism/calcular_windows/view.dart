@@ -1,8 +1,9 @@
-import 'package:calculator/src/molecule/calculator_window/view.dart';
+import '../../molecule/calculator_window/view.dart';
+import '../../provider.dart';
+
 import 'package:calculator/static/size.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../provider.dart';
 
 class CalculatorWindows extends ConsumerWidget {
   const CalculatorWindows({
@@ -13,19 +14,6 @@ class CalculatorWindows extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final sizeConfig = SizeConfig(context);
     final calculatorList = ref.watch(calculatorListProvider);
-
-    String getDisplayResult(int index) {
-      final result = calculatorList[index].result.toStringAsPrecision(5);
-      final operator = calculatorList[index].operator;
-      final inputNumber = calculatorList[index].inputNumber;
-      if (inputNumber != "") {
-        return inputNumber;
-      } else if (operator == "") {
-        return result;
-      } else {
-        return "$result $operator";
-      }
-    }
 
     void deleteCalc(int index) {
       final id = calculatorList[index].id;
@@ -40,6 +28,10 @@ class CalculatorWindows extends ConsumerWidget {
     void setName(int index, String name) {
       final id = ref.read(calculatorListProvider)[index].id;
       ref.watch(calculatorListProvider.notifier).setName(id, name);
+    }
+
+    String getDisplayResult(int index) {
+      return ref.watch(calculatorListProvider.notifier).getDisplayResult(index);
     }
 
     return ReorderableListView(

@@ -1,38 +1,20 @@
-import 'package:calculator/static/size.dart';
 import 'package:flutter/material.dart';
 
-class NumberButtonStyle {
-  Color pushedColor = Colors.green;
-  Color color = Colors.grey;
-  double radius = 40;
-  late double width;
+class CommonButtonStyle {
+  static double radius = 100;
+}
 
-  NumberButtonStyle(BuildContext context) {
-    final _sizeConfig = SizeConfig(context);
-    width = _sizeConfig.screenWidth * 0.2;
-  }
+class NumberButtonStyle {
+  static Color pushedColor = Colors.green;
+  static Color color = Colors.grey;
 }
 
 class ZeroButtonStyle {
-  Color pushedColor = Colors.green;
-  Color color = Colors.grey;
-  double radius = 40;
-  late double width;
-
-  ZeroButtonStyle(BuildContext context) {
-    final _sizeConfig = SizeConfig(context);
-    width = _sizeConfig.screenWidth * 0.4;
-  }
+  static Color pushedColor = Colors.green;
+  static Color color = Colors.grey;
 }
 
 class FunctionButtonStyle {
-  Color pushedColor = Colors.green;
-  Color color = Colors.orange;
-  double radius = 40;
-  late double width;
-
-  FunctionButtonStyle(BuildContext context) {
-    final _sizeConfig = SizeConfig(context);
-    width = _sizeConfig.screenWidth * 0.2;
-  }
+  static Color pushedColor = Colors.green;
+  static Color color = Colors.orange;
 }

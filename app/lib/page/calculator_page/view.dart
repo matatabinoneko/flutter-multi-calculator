@@ -17,15 +17,12 @@ class CalculatorPage extends ConsumerWidget {
     final calculatorList = ref.watch(calculatorListProvider.notifier);
     final calculatorHeightSize =
         ref.watch(calculatorHeightSizeProvider.notifier);
-    final calculatorButtonHeight =
-        ref.watch(calculatorButtonHeightProvider.notifier);
 
     void onPanelSlideHandler(double sizeRatio) {
       final height = SizeConfig.minCalculatorHeight +
           sizeRatio *
               (sizeConfig.maxCalculatorHeight - SizeConfig.minCalculatorHeight);
       calculatorHeightSize.setState(height);
-      calculatorButtonHeight.setState(height * 0.2);
     }
 
     return Scaffold(

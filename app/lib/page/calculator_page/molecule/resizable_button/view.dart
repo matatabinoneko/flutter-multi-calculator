@@ -10,6 +10,7 @@ class ResizableButton extends StatelessWidget {
   final double width;
   final double height;
   final double radius;
+  final double margin;
 
   const ResizableButton(this.text,
       {Key? key,
@@ -19,21 +20,25 @@ class ResizableButton extends StatelessWidget {
       required this.pushedColor,
       required this.width,
       required this.height,
-      required this.radius})
+      required this.radius,
+      this.margin = 0.0})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: width,
-      child: MaterialButton(
-        child: Text(text),
-        onPressed: onPressed,
-        color: isPushed ? pushedColor : color,
-        textColor: ButtonCSS.textColor,
-        height: height,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
+    return Container(
+      margin: EdgeInsets.all(margin),
+      child: SizedBox(
+        width: width,
+        child: MaterialButton(
+          child: Text(text),
+          onPressed: onPressed,
+          color: isPushed ? pushedColor : color,
+          textColor: ButtonCSS.textColor,
+          height: height,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(radius)),
+        ),
       ),
     );
   }
