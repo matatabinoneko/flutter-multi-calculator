@@ -13,17 +13,19 @@ class CalculatorPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final sizeConfig = SizeConfig(context);
-    final calculatorList = ref.watch(calculatorListProvider);
 
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
-      if (ref.watch(selectedCalculatorIdProvider).isEmpty) {
-        ref.watch(selectedCalculatorIdProvider.notifier).state =
-            calculatorList[0].id;
-      }
-    });
+    final calculatorList = ref.watch(calculatorListProvider.notifier);
+    final calculatorHeightSize =
+        ref.watch(calculatorHeightSizeProvider.notifier);
+    final calculatorButtonHeight =
+        ref.watch(calculatorButtonHeightProvider.notifier);
 
-    void addCalculator() {
-      ref.read(calculatorListProvider.notifier).addCalculator();
+    void onPanelSlideHandler(double sizeRatio) {
+      final height = SizeConfig.minCalculatorHeight +
+          sizeRatio *
+              (sizeConfig.maxCalculatorHeight - SizeConfig.minCalculatorHeight);
+      calculatorHeightSize.setState(height);
+      calculatorButtonHeight.setState(height * 0.2);
     }
 
     return Scaffold(
@@ -40,7 +42,7 @@ class CalculatorPage extends ConsumerWidget {
               icon: const Icon(
                 Icons.add_circle,
               ),
-              onPressed: addCalculator,
+              onPressed: calculatorList.addCalculator,
             ),
           ],
         ),
@@ -48,19 +50,10 @@ class CalculatorPage extends ConsumerWidget {
       body: SlidingUpPanel(
         maxHeight: sizeConfig.maxCalculatorHeight,
         minHeight: SizeConfig.minCalculatorHeight,
-        snapPoint: 0.5,
+        snapPoint: SizeConfig.minCalculatorSnapPoint,
         panel: const CalculatorButtons(),
         body: const CalculatorWindows(),
-        onPanelSlide: (double sizeRatio) {
-          final height = SizeConfig.minCalculatorHeight +
-              sizeRatio *
-                  (sizeConfig.maxCalculatorHeight -
-                      SizeConfig.minCalculatorHeight);
-          ref.watch(calculatorHeightSizeProvider.notifier).state = height;
-
-          ref.watch(calculatorButtonHeightProvider.notifier).state =
-              height * 0.2;
-        },
+        onPanelSlide: onPanelSlideHandler,
       ),
     );
   }

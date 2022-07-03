@@ -1,106 +1,16 @@
 import 'package:calculator/core/uuid.dart';
+import 'package:calculator/page/calculator_page/provider.dart';
+import 'package:calculator/static/size.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 import 'model.dart';
 
-// class Calculator extends StateNotifier<CalculatorModel> {
-//   Calculator(String id) : super(CalculatorModel(id));
-
-//   // 電卓のCボタン
-//   void clear() {
-//     state = state.copyWith(inputNumber: "");
-//   }
-
-//   //電卓のACボタン
-//   void allClear() {
-//     state = state.copyWith(inputNumber: "", operator: "", result: 0);
-//   }
-
-//   // 電卓の小数点 (.) ボタン
-//   void addPeriod() {
-//     if (state.inputNumber.contains(".")) {
-//       return null;
-//     } else {
-//       state = state.copyWith(inputNumber: "${state.inputNumber}.");
-//     }
-//     return state.inputNumber;
-//   }
-
-//   //電卓の数字ボタン
-//   void addInputNumber(String input) {
-//     if (!_validateInputNumber(input)) {
-//       return null;
-//     }
-//     state = state.copyWith(inputNumber: "${state.inputNumber}$input");
-//     return state.inputNumber;
-//   }
-
-//   // 電卓の演算子ボタン
-//   void setOperator(String input) {
-//     if (!_validateInputOperator(input)) {
-//       return null;
-//     }
-
-//     if (state.inputNumber != "") {
-//       doCalc();
-//     }
-//     state = state.copyWith(operator: input);
-
-//     return state.operator;
-//   }
-
-//   // 計算する関数
-//   double doCalc() {
-//     double inputValue = double.parse(state.inputNumber);
-//     switch (state.operator) {
-//       case "":
-//         state = state.copyWith(result: inputValue);
-//         break;
-//       case "+":
-//         state = state.copyWith(result: state.result + inputValue);
-//         break;
-//       case "-":
-//         state = state.copyWith(result: state.result - inputValue);
-//         break;
-//       case "*":
-//         state = state.copyWith(result: state.result * inputValue);
-//         break;
-//       case "/":
-//         state = state.copyWith(result: state.result / inputValue);
-//         break;
-//       case "=":
-//         break;
-//     }
-//     state = state.copyWith(inputNumber: "");
-//     return state.result;
-//   }
-
-//   // 入力テキストが有効な数字か確認するvalidator
-//   bool _validateInputNumber(String input) {
-//     if (input.length != 1) {
-//       return false;
-//     }
-
-//     if (!state.invalidNumbers.contains(input)) {
-//       return false;
-//     }
-//     return true;
-//   }
-
-//   //入力されたテキストが有効な演算子か確認するvalidator
-//   bool _validateInputOperator(String input) {
-//     if (input.length != 1) {
-//       return false;
-//     }
-//     if (!state.invalidOperators.contains(input)) {
-//       return false;
-//     }
-//     return true;
-//   }
-// }
-
-class CalculatorList extends StateNotifier<List<CalculatorModel>> {
-  CalculatorList() : super([CalculatorModel(createUUID(), name: "電卓0")]);
+class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
+  Ref ref;
+  CalculatorListNotifier(this.ref) : super([]) {
+    addCalculator();
+    ref.watch(selectedCalculatorIdProvider.notifier).setId(state[0].id);
+  }
 
   void addCalculator() {
     state = [
@@ -242,5 +152,29 @@ class CalculatorList extends StateNotifier<List<CalculatorModel>> {
       ...state.sublist(index + 1)
     ];
     return state[index].result;
+  }
+}
+
+class SelectedIdNotifier extends StateNotifier<String> {
+  SelectedIdNotifier() : super("");
+
+  void setId(String id) {
+    state = id;
+  }
+}
+
+class CalculatorHeightSizeNotifier extends StateNotifier<double> {
+  CalculatorHeightSizeNotifier() : super(SizeConfig.minCalculatorHeight);
+
+  void setState(double state) {
+    this.state = state;
+  }
+}
+
+class CalculatorButtonHeightNotifier extends StateNotifier<double> {
+  CalculatorButtonHeightNotifier() : super(0);
+
+  void setState(double state) {
+    this.state = state;
   }
 }

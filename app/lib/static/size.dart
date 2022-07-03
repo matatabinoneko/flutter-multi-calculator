@@ -14,6 +14,7 @@ class SizeConfig {
   late double safeAreaVertical;
   late double bottomBarHeight;
   late double calculatorNameTextWidth;
+  static double minCalculatorSnapPoint = 0.5;
 
   SizeConfig(BuildContext context) {
     _mediaQueryData = MediaQuery.of(context);

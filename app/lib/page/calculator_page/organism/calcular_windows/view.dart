@@ -33,8 +33,8 @@ class CalculatorWindows extends ConsumerWidget {
     }
 
     void onTap(int index) {
-      ref.watch(selectedCalculatorIdProvider.notifier).state =
-          calculatorList[index.toInt()].id;
+      final id = calculatorList[index].id;
+      ref.watch(selectedCalculatorIdProvider.notifier).setId(id);
     }
 
     void setName(int index, String name) {
