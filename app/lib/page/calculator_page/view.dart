@@ -1,3 +1,5 @@
+import 'package:calculator/page/calculator_page/molecule/collapsed_bar/view.dart';
+
 import 'provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -8,7 +10,8 @@ import 'organism/cauculator_buttons/view.dart';
 import 'package:calculator/static/size.dart';
 
 class CalculatorPage extends ConsumerWidget {
-  const CalculatorPage({Key? key}) : super(key: key);
+  CalculatorPage({Key? key}) : super(key: key);
+  final PanelController _pc = PanelController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -17,7 +20,7 @@ class CalculatorPage extends ConsumerWidget {
     final calculatorList = ref.watch(calculatorListProvider.notifier);
     final calculatorHeightSize =
         ref.watch(calculatorHeightSizeProvider.notifier);
-
+    final isClosedSlidingUpPanel = ref.watch(isClosedSlidingUpPanelProvider);
     void onPanelSlideHandler(double sizeRatio) {
       final height = SizeConfig.minCalculatorHeight +
           sizeRatio *
@@ -45,11 +48,14 @@ class CalculatorPage extends ConsumerWidget {
         ),
       ),
       body: SlidingUpPanel(
+        controller: _pc,
         maxHeight: sizeConfig.maxCalculatorHeight,
         minHeight: SizeConfig.minCalculatorHeight,
         snapPoint: SizeConfig.minCalculatorSnapPoint,
         panel: const CalculatorButtons(),
         body: const CalculatorWindows(),
+        collapsed:
+            isClosedSlidingUpPanel ? CollapsedBar(onPressed: _pc.open) : null,
         onPanelSlide: onPanelSlideHandler,
       ),
     );
