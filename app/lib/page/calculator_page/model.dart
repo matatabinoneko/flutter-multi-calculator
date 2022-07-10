@@ -7,11 +7,11 @@ part 'model.g.dart';
 abstract class CalculatorModel with _$CalculatorModel {
   factory CalculatorModel(
     String id, {
-    @Default(0.0) double result,
-    @Default("") String inputNumber,
+    @Default("") String number,
     @Default("") String operator,
-    @Default("0123456789") String invalidNumbers,
-    @Default("+-*/=") String invalidOperators,
+    @Default([]) List<String> pushedButtonHist,
+    @Default(["0"]) List<String> calcHist,
+    @Default("") String buffer,
     required String name,
   }) = _CalculatorModel;
 

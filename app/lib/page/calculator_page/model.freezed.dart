@@ -21,11 +21,11 @@ CalculatorModel _$CalculatorModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$CalculatorModel {
   String get id => throw _privateConstructorUsedError;
-  double get result => throw _privateConstructorUsedError;
-  String get inputNumber => throw _privateConstructorUsedError;
+  String get number => throw _privateConstructorUsedError;
   String get operator => throw _privateConstructorUsedError;
-  String get invalidNumbers => throw _privateConstructorUsedError;
-  String get invalidOperators => throw _privateConstructorUsedError;
+  List<String> get pushedButtonHist => throw _privateConstructorUsedError;
+  List<String> get calcHist => throw _privateConstructorUsedError;
+  String get buffer => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,11 +41,11 @@ abstract class $CalculatorModelCopyWith<$Res> {
       _$CalculatorModelCopyWithImpl<$Res>;
   $Res call(
       {String id,
-      double result,
-      String inputNumber,
+      String number,
       String operator,
-      String invalidNumbers,
-      String invalidOperators,
+      List<String> pushedButtonHist,
+      List<String> calcHist,
+      String buffer,
       String name});
 }
 
@@ -61,11 +61,11 @@ class _$CalculatorModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? result = freezed,
-    Object? inputNumber = freezed,
+    Object? number = freezed,
     Object? operator = freezed,
-    Object? invalidNumbers = freezed,
-    Object? invalidOperators = freezed,
+    Object? pushedButtonHist = freezed,
+    Object? calcHist = freezed,
+    Object? buffer = freezed,
     Object? name = freezed,
   }) {
     return _then(_value.copyWith(
@@ -73,25 +73,25 @@ class _$CalculatorModelCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      result: result == freezed
-          ? _value.result
-          : result // ignore: cast_nullable_to_non_nullable
-              as double,
-      inputNumber: inputNumber == freezed
-          ? _value.inputNumber
-          : inputNumber // ignore: cast_nullable_to_non_nullable
+      number: number == freezed
+          ? _value.number
+          : number // ignore: cast_nullable_to_non_nullable
               as String,
       operator: operator == freezed
           ? _value.operator
           : operator // ignore: cast_nullable_to_non_nullable
               as String,
-      invalidNumbers: invalidNumbers == freezed
-          ? _value.invalidNumbers
-          : invalidNumbers // ignore: cast_nullable_to_non_nullable
-              as String,
-      invalidOperators: invalidOperators == freezed
-          ? _value.invalidOperators
-          : invalidOperators // ignore: cast_nullable_to_non_nullable
+      pushedButtonHist: pushedButtonHist == freezed
+          ? _value.pushedButtonHist
+          : pushedButtonHist // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      calcHist: calcHist == freezed
+          ? _value.calcHist
+          : calcHist // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      buffer: buffer == freezed
+          ? _value.buffer
+          : buffer // ignore: cast_nullable_to_non_nullable
               as String,
       name: name == freezed
           ? _value.name
@@ -110,11 +110,11 @@ abstract class _$$_CalculatorModelCopyWith<$Res>
   @override
   $Res call(
       {String id,
-      double result,
-      String inputNumber,
+      String number,
       String operator,
-      String invalidNumbers,
-      String invalidOperators,
+      List<String> pushedButtonHist,
+      List<String> calcHist,
+      String buffer,
       String name});
 }
 
@@ -132,11 +132,11 @@ class __$$_CalculatorModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? result = freezed,
-    Object? inputNumber = freezed,
+    Object? number = freezed,
     Object? operator = freezed,
-    Object? invalidNumbers = freezed,
-    Object? invalidOperators = freezed,
+    Object? pushedButtonHist = freezed,
+    Object? calcHist = freezed,
+    Object? buffer = freezed,
     Object? name = freezed,
   }) {
     return _then(_$_CalculatorModel(
@@ -144,25 +144,25 @@ class __$$_CalculatorModelCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      result: result == freezed
-          ? _value.result
-          : result // ignore: cast_nullable_to_non_nullable
-              as double,
-      inputNumber: inputNumber == freezed
-          ? _value.inputNumber
-          : inputNumber // ignore: cast_nullable_to_non_nullable
+      number: number == freezed
+          ? _value.number
+          : number // ignore: cast_nullable_to_non_nullable
               as String,
       operator: operator == freezed
           ? _value.operator
           : operator // ignore: cast_nullable_to_non_nullable
               as String,
-      invalidNumbers: invalidNumbers == freezed
-          ? _value.invalidNumbers
-          : invalidNumbers // ignore: cast_nullable_to_non_nullable
-              as String,
-      invalidOperators: invalidOperators == freezed
-          ? _value.invalidOperators
-          : invalidOperators // ignore: cast_nullable_to_non_nullable
+      pushedButtonHist: pushedButtonHist == freezed
+          ? _value._pushedButtonHist
+          : pushedButtonHist // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      calcHist: calcHist == freezed
+          ? _value._calcHist
+          : calcHist // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      buffer: buffer == freezed
+          ? _value.buffer
+          : buffer // ignore: cast_nullable_to_non_nullable
               as String,
       name: name == freezed
           ? _value.name
@@ -176,12 +176,14 @@ class __$$_CalculatorModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_CalculatorModel implements _CalculatorModel {
   _$_CalculatorModel(this.id,
-      {this.result = 0.0,
-      this.inputNumber = "",
+      {this.number = "",
       this.operator = "",
-      this.invalidNumbers = "0123456789",
-      this.invalidOperators = "+-*/=",
-      required this.name});
+      final List<String> pushedButtonHist = const [],
+      final List<String> calcHist = const ["0"],
+      this.buffer = "",
+      required this.name})
+      : _pushedButtonHist = pushedButtonHist,
+        _calcHist = calcHist;
 
   factory _$_CalculatorModel.fromJson(Map<String, dynamic> json) =>
       _$$_CalculatorModelFromJson(json);
@@ -190,25 +192,35 @@ class _$_CalculatorModel implements _CalculatorModel {
   final String id;
   @override
   @JsonKey()
-  final double result;
-  @override
-  @JsonKey()
-  final String inputNumber;
+  final String number;
   @override
   @JsonKey()
   final String operator;
+  final List<String> _pushedButtonHist;
   @override
   @JsonKey()
-  final String invalidNumbers;
+  List<String> get pushedButtonHist {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_pushedButtonHist);
+  }
+
+  final List<String> _calcHist;
   @override
   @JsonKey()
-  final String invalidOperators;
+  List<String> get calcHist {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_calcHist);
+  }
+
+  @override
+  @JsonKey()
+  final String buffer;
   @override
   final String name;
 
   @override
   String toString() {
-    return 'CalculatorModel(id: $id, result: $result, inputNumber: $inputNumber, operator: $operator, invalidNumbers: $invalidNumbers, invalidOperators: $invalidOperators, name: $name)';
+    return 'CalculatorModel(id: $id, number: $number, operator: $operator, pushedButtonHist: $pushedButtonHist, calcHist: $calcHist, buffer: $buffer, name: $name)';
   }
 
   @override
@@ -217,14 +229,12 @@ class _$_CalculatorModel implements _CalculatorModel {
         (other.runtimeType == runtimeType &&
             other is _$_CalculatorModel &&
             const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.result, result) &&
-            const DeepCollectionEquality()
-                .equals(other.inputNumber, inputNumber) &&
+            const DeepCollectionEquality().equals(other.number, number) &&
             const DeepCollectionEquality().equals(other.operator, operator) &&
             const DeepCollectionEquality()
-                .equals(other.invalidNumbers, invalidNumbers) &&
-            const DeepCollectionEquality()
-                .equals(other.invalidOperators, invalidOperators) &&
+                .equals(other._pushedButtonHist, _pushedButtonHist) &&
+            const DeepCollectionEquality().equals(other._calcHist, _calcHist) &&
+            const DeepCollectionEquality().equals(other.buffer, buffer) &&
             const DeepCollectionEquality().equals(other.name, name));
   }
 
@@ -233,11 +243,11 @@ class _$_CalculatorModel implements _CalculatorModel {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(result),
-      const DeepCollectionEquality().hash(inputNumber),
+      const DeepCollectionEquality().hash(number),
       const DeepCollectionEquality().hash(operator),
-      const DeepCollectionEquality().hash(invalidNumbers),
-      const DeepCollectionEquality().hash(invalidOperators),
+      const DeepCollectionEquality().hash(_pushedButtonHist),
+      const DeepCollectionEquality().hash(_calcHist),
+      const DeepCollectionEquality().hash(buffer),
       const DeepCollectionEquality().hash(name));
 
   @JsonKey(ignore: true)
@@ -253,11 +263,11 @@ class _$_CalculatorModel implements _CalculatorModel {
 
 abstract class _CalculatorModel implements CalculatorModel {
   factory _CalculatorModel(final String id,
-      {final double result,
-      final String inputNumber,
+      {final String number,
       final String operator,
-      final String invalidNumbers,
-      final String invalidOperators,
+      final List<String> pushedButtonHist,
+      final List<String> calcHist,
+      final String buffer,
       required final String name}) = _$_CalculatorModel;
 
   factory _CalculatorModel.fromJson(Map<String, dynamic> json) =
@@ -266,15 +276,15 @@ abstract class _CalculatorModel implements CalculatorModel {
   @override
   String get id => throw _privateConstructorUsedError;
   @override
-  double get result => throw _privateConstructorUsedError;
-  @override
-  String get inputNumber => throw _privateConstructorUsedError;
+  String get number => throw _privateConstructorUsedError;
   @override
   String get operator => throw _privateConstructorUsedError;
   @override
-  String get invalidNumbers => throw _privateConstructorUsedError;
+  List<String> get pushedButtonHist => throw _privateConstructorUsedError;
   @override
-  String get invalidOperators => throw _privateConstructorUsedError;
+  List<String> get calcHist => throw _privateConstructorUsedError;
+  @override
+  String get buffer => throw _privateConstructorUsedError;
   @override
   String get name => throw _privateConstructorUsedError;
   @override

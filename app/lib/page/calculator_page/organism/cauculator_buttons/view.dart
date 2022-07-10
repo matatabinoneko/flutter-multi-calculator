@@ -25,24 +25,48 @@ class CalculatorButtons extends ConsumerWidget {
         (sizeConfig.snapPointHeight - buttonMargin * 10) * 0.2);
     final zeroButtonWidth = (buttonWidth + buttonMargin) * 2;
 
+    final calculatorListState = ref.watch(calculatorListProvider);
+    final index = calculatorListState
+        .map((e) => e.id)
+        .toList()
+        .indexOf(selectedcalculatorId);
+    final isPushClear = calculatorListState[index].pushedButtonHist.isEmpty ||
+        calculatorListState[index].pushedButtonHist[
+                calculatorListState[index].pushedButtonHist.length - 1] ==
+            "C";
+
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ResizableButton(
-              "AC",
-              onPressed: () {
-                calculatorList.allClear(selectedcalculatorId);
-              },
-              isPushed: false,
-              color: FunctionButtonStyle.color,
-              pushedColor: FunctionButtonStyle.pushedColor,
-              width: buttonWidth,
-              height: buttonHeight,
-              radius: CommonButtonStyle.radius,
-              margin: buttonMargin,
-            ),
+            isPushClear
+                ? ResizableButton(
+                    "AC",
+                    onPressed: () {
+                      calculatorList.allClear(selectedcalculatorId);
+                    },
+                    isPushed: false,
+                    color: FunctionButtonStyle.color,
+                    pushedColor: FunctionButtonStyle.pushedColor,
+                    width: buttonWidth,
+                    height: buttonHeight,
+                    radius: CommonButtonStyle.radius,
+                    margin: buttonMargin,
+                  )
+                : ResizableButton(
+                    "C",
+                    onPressed: () {
+                      calculatorList.clear(selectedcalculatorId);
+                    },
+                    isPushed: false,
+                    color: FunctionButtonStyle.color,
+                    pushedColor: FunctionButtonStyle.pushedColor,
+                    width: buttonWidth,
+                    height: buttonHeight,
+                    radius: CommonButtonStyle.radius,
+                    margin: buttonMargin,
+                  ),
             ResizableButton(
               "hoge",
               onPressed: () {
@@ -287,7 +311,7 @@ class CalculatorButtons extends ConsumerWidget {
             ResizableButton(
               "=",
               onPressed: () {
-                calculatorList.setOperator("=", selectedcalculatorId);
+                calculatorList.setEqual(selectedcalculatorId);
               },
               isPushed: false,
               color: FunctionButtonStyle.color,
