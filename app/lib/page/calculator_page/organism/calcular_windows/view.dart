@@ -14,6 +14,7 @@ class CalculatorWindows extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final sizeConfig = SizeConfig(context);
     final calculatorList = ref.watch(calculatorListProvider);
+    final selectedId = ref.watch(selectedCalculatorIdProvider);
 
     void deleteCalc(int index) {
       final id = calculatorList[index].id;
@@ -57,6 +58,7 @@ class CalculatorWindows extends ConsumerWidget {
                 setName: (String name) {
                   setName(index, name);
                 },
+                isSelected: calculatorList[index].id == selectedId
               ),
               onTap: () {
                 onTap(index);
