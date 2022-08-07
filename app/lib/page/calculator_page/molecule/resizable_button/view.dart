@@ -11,6 +11,7 @@ class ResizableButton extends StatelessWidget {
   final double height;
   final double radius;
   final double margin;
+  final Color? textColor;
 
   const ResizableButton(this.text,
       {Key? key,
@@ -21,6 +22,7 @@ class ResizableButton extends StatelessWidget {
       required this.width,
       required this.height,
       required this.radius,
+      this.textColor,
       this.margin = 0.0})
       : super(key: key);
 
@@ -34,7 +36,7 @@ class ResizableButton extends StatelessWidget {
           child: Text(text),
           onPressed: onPressed,
           color: isPushed ? pushedColor : color,
-          textColor: ButtonCSS.textColor,
+          textColor: textColor == null ? ButtonCSS.textColor : textColor,
           height: height,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(radius)),

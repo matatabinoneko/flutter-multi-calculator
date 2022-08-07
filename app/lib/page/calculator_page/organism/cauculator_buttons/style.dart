@@ -5,16 +5,22 @@ class CommonButtonStyle {
 }
 
 class NumberButtonStyle {
-  static Color pushedColor = Colors.green;
-  static Color color = Colors.grey;
+  static Color pushedColor = const Color(0xFF333333);
+  static Color color = const Color(0xFF333333);
 }
 
 class ZeroButtonStyle {
   static Color pushedColor = Colors.green;
-  static Color color = Colors.grey;
+  static Color color = const Color(0xFF333333);
+}
+
+class OperatorButtonStyle {
+  static Color pushedColor = Colors.green;
+  static Color color = const Color(0xFFFF9F0B);
 }
 
 class FunctionButtonStyle {
   static Color pushedColor = Colors.green;
-  static Color color = Colors.orange;
+  static Color color = const Color(0xFFA5A5A5);
+  static Color textColor = const Color(0xFF000000);
 }

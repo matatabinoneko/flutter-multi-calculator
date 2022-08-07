@@ -35,37 +35,40 @@ class CalculatorWindows extends ConsumerWidget {
       return ref.watch(calculatorListProvider.notifier).getDisplayResult(index);
     }
 
-    return ReorderableListView(
+    return Container(
+      color: const Color(0xFF33383F),
       padding: EdgeInsets.only(
           top: sizeConfig.statusBarHeight,
           bottom: ref.watch(calculatorHeightSizeProvider)),
-      onReorder: (int oldIndex, int newIndex) {
-        ref
-            .watch(calculatorListProvider.notifier)
-            .reOrderCaluculator(oldIndex: oldIndex, newIndex: newIndex);
-      },
-      children: <Widget>[
-        for (final index in List<int>.generate(calculatorList.length, (i) => i))
-          Material(
-            key: Key(calculatorList[index].id),
-            child: InkWell(
-              child: CalculatorWindow(
-                result: getDisplayResult(index),
-                deleteCalc: () {
-                  deleteCalc(index);
+      child: ReorderableListView(
+        onReorder: (int oldIndex, int newIndex) {
+          ref
+              .watch(calculatorListProvider.notifier)
+              .reOrderCaluculator(oldIndex: oldIndex, newIndex: newIndex);
+        },
+        children: <Widget>[
+          for (final index
+              in List<int>.generate(calculatorList.length, (i) => i))
+            Material(
+              key: Key(calculatorList[index].id),
+              child: InkWell(
+                child: CalculatorWindow(
+                    result: getDisplayResult(index),
+                    deleteCalc: () {
+                      deleteCalc(index);
+                    },
+                    name: calculatorList[index].name,
+                    setName: (String name) {
+                      setName(index, name);
+                    },
+                    isSelected: calculatorList[index].id == selectedId),
+                onTap: () {
+                  onTap(index);
                 },
-                name: calculatorList[index].name,
-                setName: (String name) {
-                  setName(index, name);
-                },
-                isSelected: calculatorList[index].id == selectedId
               ),
-              onTap: () {
-                onTap(index);
-              },
-            ),
-          )
-      ],
+            )
+        ],
+      ),
     );
   }
 }
