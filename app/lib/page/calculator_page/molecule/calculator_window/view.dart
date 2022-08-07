@@ -18,22 +18,41 @@ class CalculatorWindow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sizeConfig = SizeConfig(context);
-    return Row(
-      children: [
-        SizedBox(
-          width: sizeConfig.calculatorNameTextWidth,
-          child: TextField(
-            controller: TextEditingController(text: name),
-            obscureText: false,
-            onSubmitted: setName,
+    return Container(
+      color: const Color(0xFF33383F),
+      padding: const EdgeInsets.fromLTRB(35, 25, 35, 45),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                width: sizeConfig.calculatorNameTextWidth,
+                child: TextField(
+                  controller: TextEditingController(text: name),
+                  obscureText: false,
+                  onSubmitted: setName,
+                  style: const TextStyle(color: Colors.white, fontSize: 24),
+                ),
+              ),
+              IconButton(
+                icon: const Icon(
+                  Icons.delete,
+                  color: Colors.white,
+                ),
+                onPressed: deleteCalc,
+                iconSize: 25,
+              ),
+            ],
           ),
-        ),
-        Text(result),
-        InkWell(
-          child: const Icon(Icons.delete),
-          onTap: deleteCalc,
-        ),
-      ],
+          Text(
+            result,
+            textAlign: TextAlign.end,
+            style: const TextStyle(color: Colors.white, fontSize: 40),
+          ),
+        ],
+      ),
     );
   }
 }

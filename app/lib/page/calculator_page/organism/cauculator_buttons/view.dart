@@ -35,295 +35,585 @@ class CalculatorButtons extends ConsumerWidget {
                 calculatorListState[index].pushedButtonHist.length - 1] ==
             "C";
 
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            isPushClear
-                ? ResizableButton(
-                    "AC",
-                    onPressed: () {
+    // return Column(
+    //   children: [
+    //     Row(
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: [
+    //         isPushClear
+    //             ? ResizableButton(
+    //                 "AC",
+    //                 onPressed: () {
+    //                   calculatorList.allClear(selectedcalculatorId);
+    //                 },
+    //                 isPushed: false,
+    //                 color: FunctionButtonStyle.color,
+    //                 pushedColor: FunctionButtonStyle.pushedColor,
+    //                 width: buttonWidth,
+    //                 height: buttonHeight,
+    //                 radius: CommonButtonStyle.radius,
+    //                 margin: buttonMargin,
+    //               )
+    //             : ResizableButton(
+    //                 "C",
+    //                 onPressed: () {
+    //                   calculatorList.clear(selectedcalculatorId);
+    //                 },
+    //                 isPushed: false,
+    //                 color: FunctionButtonStyle.color,
+    //                 pushedColor: FunctionButtonStyle.pushedColor,
+    //                 width: buttonWidth,
+    //                 height: buttonHeight,
+    //                 radius: CommonButtonStyle.radius,
+    //                 margin: buttonMargin,
+    //               ),
+    //         ResizableButton(
+    //           "hoge",
+    //           onPressed: () {
+    //             print("hoge");
+    //           },
+    //           isPushed: false,
+    //           color: FunctionButtonStyle.color,
+    //           pushedColor: FunctionButtonStyle.pushedColor,
+    //           width: buttonWidth,
+    //           height: buttonHeight,
+    //           radius: CommonButtonStyle.radius,
+    //           margin: buttonMargin,
+    //         ),
+    //         ResizableButton(
+    //           "%",
+    //           onPressed: () {
+    //             print("%");
+    //           },
+    //           isPushed: false,
+    //           color: FunctionButtonStyle.color,
+    //           pushedColor: FunctionButtonStyle.pushedColor,
+    //           width: buttonWidth,
+    //           height: buttonHeight,
+    //           radius: CommonButtonStyle.radius,
+    //           margin: buttonMargin,
+    //         ),
+    //         ResizableButton(
+    //           "/",
+    //           onPressed: () {
+    //             calculatorList.setOperator("/", selectedcalculatorId);
+    //           },
+    //           isPushed: false,
+    //           color: FunctionButtonStyle.color,
+    //           pushedColor: FunctionButtonStyle.pushedColor,
+    //           width: buttonWidth,
+    //           height: buttonHeight,
+    //           radius: CommonButtonStyle.radius,
+    //           margin: buttonMargin,
+    //         ),
+    //       ],
+    //     ),
+    //     Row(
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: [
+    //         ResizableButton(
+    //           "7",
+    //           onPressed: () {
+    //             calculatorList.addInputNumber("7", selectedcalculatorId);
+    //           },
+    //           isPushed: false,
+    //           color: NumberButtonStyle.color,
+    //           pushedColor: NumberButtonStyle.pushedColor,
+    //           width: buttonWidth,
+    //           height: buttonHeight,
+    //           radius: CommonButtonStyle.radius,
+    //           margin: buttonMargin,
+    //         ),
+    //         ResizableButton(
+    //           "8",
+    //           onPressed: () {
+    //             calculatorList.addInputNumber("8", selectedcalculatorId);
+    //           },
+    //           isPushed: false,
+    //           color: NumberButtonStyle.color,
+    //           pushedColor: NumberButtonStyle.pushedColor,
+    //           width: buttonWidth,
+    //           height: buttonHeight,
+    //           radius: CommonButtonStyle.radius,
+    //           margin: buttonMargin,
+    //         ),
+    //         ResizableButton(
+    //           "9",
+    //           onPressed: () {
+    //             calculatorList.addInputNumber("9", selectedcalculatorId);
+    //           },
+    //           isPushed: false,
+    //           color: NumberButtonStyle.color,
+    //           pushedColor: NumberButtonStyle.pushedColor,
+    //           width: buttonWidth,
+    //           height: buttonHeight,
+    //           radius: CommonButtonStyle.radius,
+    //           margin: buttonMargin,
+    //         ),
+    //         ResizableButton(
+    //           "×",
+    //           onPressed: () {
+    //             calculatorList.setOperator("*", selectedcalculatorId);
+    //           },
+    //           isPushed: false,
+    //           color: FunctionButtonStyle.color,
+    //           pushedColor: FunctionButtonStyle.pushedColor,
+    //           width: buttonWidth,
+    //           height: buttonHeight,
+    //           radius: CommonButtonStyle.radius,
+    //           margin: buttonMargin,
+    //         ),
+    //       ],
+    //     ),
+    //     Row(
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: [
+    //         ResizableButton(
+    //           "4",
+    //           onPressed: () {
+    //             calculatorList.addInputNumber("4", selectedcalculatorId);
+    //           },
+    //           isPushed: false,
+    //           color: NumberButtonStyle.color,
+    //           pushedColor: NumberButtonStyle.pushedColor,
+    //           width: buttonWidth,
+    //           height: buttonHeight,
+    //           radius: CommonButtonStyle.radius,
+    //           margin: buttonMargin,
+    //         ),
+    //         ResizableButton(
+    //           "5",
+    //           onPressed: () {
+    //             calculatorList.addInputNumber("5", selectedcalculatorId);
+    //           },
+    //           isPushed: false,
+    //           color: NumberButtonStyle.color,
+    //           pushedColor: NumberButtonStyle.pushedColor,
+    //           width: buttonWidth,
+    //           height: buttonHeight,
+    //           radius: CommonButtonStyle.radius,
+    //           margin: buttonMargin,
+    //         ),
+    //         ResizableButton(
+    //           "7",
+    //           onPressed: () {
+    //             calculatorList.addInputNumber("7", selectedcalculatorId);
+    //           },
+    //           isPushed: false,
+    //           color: NumberButtonStyle.color,
+    //           pushedColor: NumberButtonStyle.pushedColor,
+    //           width: buttonWidth,
+    //           height: buttonHeight,
+    //           radius: CommonButtonStyle.radius,
+    //           margin: buttonMargin,
+    //         ),
+    //         ResizableButton(
+    //           "-",
+    //           onPressed: () {
+    //             calculatorList.setOperator("-", selectedcalculatorId);
+    //           },
+    //           isPushed: false,
+    //           color: FunctionButtonStyle.color,
+    //           pushedColor: FunctionButtonStyle.pushedColor,
+    //           width: buttonWidth,
+    //           height: buttonHeight,
+    //           radius: CommonButtonStyle.radius,
+    //           margin: buttonMargin,
+    //         ),
+    //       ],
+    //     ),
+    //     Row(
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: [
+    //         ResizableButton(
+    //           "1",
+    //           onPressed: () {
+    //             calculatorList.addInputNumber("1", selectedcalculatorId);
+    //           },
+    //           isPushed: false,
+    //           color: NumberButtonStyle.color,
+    //           pushedColor: NumberButtonStyle.pushedColor,
+    //           width: buttonWidth,
+    //           height: buttonHeight,
+    //           radius: CommonButtonStyle.radius,
+    //           margin: buttonMargin,
+    //         ),
+    //         ResizableButton(
+    //           "2",
+    //           onPressed: () {
+    //             calculatorList.addInputNumber("2", selectedcalculatorId);
+    //           },
+    //           isPushed: false,
+    //           color: NumberButtonStyle.color,
+    //           pushedColor: NumberButtonStyle.pushedColor,
+    //           width: buttonWidth,
+    //           height: buttonHeight,
+    //           radius: CommonButtonStyle.radius,
+    //           margin: buttonMargin,
+    //         ),
+    //         ResizableButton(
+    //           "3",
+    //           onPressed: () {
+    //             calculatorList.addInputNumber("3", selectedcalculatorId);
+    //           },
+    //           isPushed: false,
+    //           color: NumberButtonStyle.color,
+    //           pushedColor: NumberButtonStyle.pushedColor,
+    //           width: buttonWidth,
+    //           height: buttonHeight,
+    //           radius: CommonButtonStyle.radius,
+    //           margin: buttonMargin,
+    //         ),
+    //         ResizableButton(
+    //           "+",
+    //           onPressed: () {
+    //             calculatorList.setOperator("+", selectedcalculatorId);
+    //           },
+    //           isPushed: false,
+    //           color: FunctionButtonStyle.color,
+    //           pushedColor: FunctionButtonStyle.pushedColor,
+    //           width: buttonWidth,
+    //           height: buttonHeight,
+    //           radius: CommonButtonStyle.radius,
+    //           margin: buttonMargin,
+    //         ),
+    //       ],
+    //     ),
+    //     Row(
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: [
+    //         ResizableButton(
+    //           "0",
+    //           onPressed: () {
+    //             calculatorList.addInputNumber("0", selectedcalculatorId);
+    //           },
+    //           isPushed: false,
+    //           color: ZeroButtonStyle.color,
+    //           pushedColor: ZeroButtonStyle.pushedColor,
+    //           width: zeroButtonWidth,
+    //           height: buttonHeight,
+    //           radius: CommonButtonStyle.radius,
+    //           margin: buttonMargin,
+    //         ),
+    //         ResizableButton(
+    //           ".",
+    //           onPressed: () {
+    //             calculatorList.addPeriod(selectedcalculatorId);
+    //           },
+    //           isPushed: false,
+    //           color: NumberButtonStyle.color,
+    //           pushedColor: NumberButtonStyle.pushedColor,
+    //           width: buttonWidth,
+    //           height: buttonHeight,
+    //           radius: CommonButtonStyle.radius,
+    //           margin: buttonMargin,
+    //         ),
+    //         ResizableButton(
+    //           "=",
+    //           onPressed: () {
+    //             calculatorList.setEqual(selectedcalculatorId);
+    //           },
+    //           isPushed: false,
+    //           color: FunctionButtonStyle.color,
+    //           pushedColor: FunctionButtonStyle.pushedColor,
+    //           width: buttonWidth,
+    //           height: buttonHeight,
+    //           radius: CommonButtonStyle.radius,
+    //           margin: buttonMargin,
+    //         ),
+    //       ],
+    //     )
+    //   ],
+    return Container(
+      color: const Color(0xFF1F1F1F),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              isPushClear
+                  ? ResizableButton("AC", onPressed: () {
                       calculatorList.allClear(selectedcalculatorId);
                     },
-                    isPushed: false,
-                    color: FunctionButtonStyle.color,
-                    pushedColor: FunctionButtonStyle.pushedColor,
-                    width: buttonWidth,
-                    height: buttonHeight,
-                    radius: CommonButtonStyle.radius,
-                    margin: buttonMargin,
-                  )
-                : ResizableButton(
-                    "C",
-                    onPressed: () {
+                      isPushed: false,
+                      color: FunctionButtonStyle.color,
+                      pushedColor: FunctionButtonStyle.pushedColor,
+                      width: buttonWidth,
+                      height: buttonHeight,
+                      radius: CommonButtonStyle.radius,
+                      margin: buttonMargin,
+                      textColor: FunctionButtonStyle.textColor)
+                  : ResizableButton("C", onPressed: () {
                       calculatorList.clear(selectedcalculatorId);
                     },
-                    isPushed: false,
-                    color: FunctionButtonStyle.color,
-                    pushedColor: FunctionButtonStyle.pushedColor,
-                    width: buttonWidth,
-                    height: buttonHeight,
-                    radius: CommonButtonStyle.radius,
-                    margin: buttonMargin,
-                  ),
-            ResizableButton(
-              "hoge",
-              onPressed: () {
-                print("hoge");
-              },
-              isPushed: false,
-              color: FunctionButtonStyle.color,
-              pushedColor: FunctionButtonStyle.pushedColor,
-              width: buttonWidth,
-              height: buttonHeight,
-              radius: CommonButtonStyle.radius,
-              margin: buttonMargin,
-            ),
-            ResizableButton(
-              "%",
-              onPressed: () {
-                print("%");
-              },
-              isPushed: false,
-              color: FunctionButtonStyle.color,
-              pushedColor: FunctionButtonStyle.pushedColor,
-              width: buttonWidth,
-              height: buttonHeight,
-              radius: CommonButtonStyle.radius,
-              margin: buttonMargin,
-            ),
-            ResizableButton(
-              "/",
-              onPressed: () {
-                calculatorList.setOperator("/", selectedcalculatorId);
-              },
-              isPushed: false,
-              color: FunctionButtonStyle.color,
-              pushedColor: FunctionButtonStyle.pushedColor,
-              width: buttonWidth,
-              height: buttonHeight,
-              radius: CommonButtonStyle.radius,
-              margin: buttonMargin,
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ResizableButton(
-              "7",
-              onPressed: () {
-                calculatorList.addInputNumber("7", selectedcalculatorId);
-              },
-              isPushed: false,
-              color: NumberButtonStyle.color,
-              pushedColor: NumberButtonStyle.pushedColor,
-              width: buttonWidth,
-              height: buttonHeight,
-              radius: CommonButtonStyle.radius,
-              margin: buttonMargin,
-            ),
-            ResizableButton(
-              "8",
-              onPressed: () {
-                calculatorList.addInputNumber("8", selectedcalculatorId);
-              },
-              isPushed: false,
-              color: NumberButtonStyle.color,
-              pushedColor: NumberButtonStyle.pushedColor,
-              width: buttonWidth,
-              height: buttonHeight,
-              radius: CommonButtonStyle.radius,
-              margin: buttonMargin,
-            ),
-            ResizableButton(
-              "9",
-              onPressed: () {
-                calculatorList.addInputNumber("9", selectedcalculatorId);
-              },
-              isPushed: false,
-              color: NumberButtonStyle.color,
-              pushedColor: NumberButtonStyle.pushedColor,
-              width: buttonWidth,
-              height: buttonHeight,
-              radius: CommonButtonStyle.radius,
-              margin: buttonMargin,
-            ),
-            ResizableButton(
-              "×",
-              onPressed: () {
-                calculatorList.setOperator("*", selectedcalculatorId);
-              },
-              isPushed: false,
-              color: FunctionButtonStyle.color,
-              pushedColor: FunctionButtonStyle.pushedColor,
-              width: buttonWidth,
-              height: buttonHeight,
-              radius: CommonButtonStyle.radius,
-              margin: buttonMargin,
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ResizableButton(
-              "4",
-              onPressed: () {
-                calculatorList.addInputNumber("4", selectedcalculatorId);
-              },
-              isPushed: false,
-              color: NumberButtonStyle.color,
-              pushedColor: NumberButtonStyle.pushedColor,
-              width: buttonWidth,
-              height: buttonHeight,
-              radius: CommonButtonStyle.radius,
-              margin: buttonMargin,
-            ),
-            ResizableButton(
-              "5",
-              onPressed: () {
-                calculatorList.addInputNumber("5", selectedcalculatorId);
-              },
-              isPushed: false,
-              color: NumberButtonStyle.color,
-              pushedColor: NumberButtonStyle.pushedColor,
-              width: buttonWidth,
-              height: buttonHeight,
-              radius: CommonButtonStyle.radius,
-              margin: buttonMargin,
-            ),
-            ResizableButton(
-              "7",
-              onPressed: () {
-                calculatorList.addInputNumber("7", selectedcalculatorId);
-              },
-              isPushed: false,
-              color: NumberButtonStyle.color,
-              pushedColor: NumberButtonStyle.pushedColor,
-              width: buttonWidth,
-              height: buttonHeight,
-              radius: CommonButtonStyle.radius,
-              margin: buttonMargin,
-            ),
-            ResizableButton(
-              "-",
-              onPressed: () {
-                calculatorList.setOperator("-", selectedcalculatorId);
-              },
-              isPushed: false,
-              color: FunctionButtonStyle.color,
-              pushedColor: FunctionButtonStyle.pushedColor,
-              width: buttonWidth,
-              height: buttonHeight,
-              radius: CommonButtonStyle.radius,
-              margin: buttonMargin,
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ResizableButton(
-              "1",
-              onPressed: () {
-                calculatorList.addInputNumber("1", selectedcalculatorId);
-              },
-              isPushed: false,
-              color: NumberButtonStyle.color,
-              pushedColor: NumberButtonStyle.pushedColor,
-              width: buttonWidth,
-              height: buttonHeight,
-              radius: CommonButtonStyle.radius,
-              margin: buttonMargin,
-            ),
-            ResizableButton(
-              "2",
-              onPressed: () {
-                calculatorList.addInputNumber("2", selectedcalculatorId);
-              },
-              isPushed: false,
-              color: NumberButtonStyle.color,
-              pushedColor: NumberButtonStyle.pushedColor,
-              width: buttonWidth,
-              height: buttonHeight,
-              radius: CommonButtonStyle.radius,
-              margin: buttonMargin,
-            ),
-            ResizableButton(
-              "3",
-              onPressed: () {
-                calculatorList.addInputNumber("3", selectedcalculatorId);
-              },
-              isPushed: false,
-              color: NumberButtonStyle.color,
-              pushedColor: NumberButtonStyle.pushedColor,
-              width: buttonWidth,
-              height: buttonHeight,
-              radius: CommonButtonStyle.radius,
-              margin: buttonMargin,
-            ),
-            ResizableButton(
-              "+",
-              onPressed: () {
-                calculatorList.setOperator("+", selectedcalculatorId);
-              },
-              isPushed: false,
-              color: FunctionButtonStyle.color,
-              pushedColor: FunctionButtonStyle.pushedColor,
-              width: buttonWidth,
-              height: buttonHeight,
-              radius: CommonButtonStyle.radius,
-              margin: buttonMargin,
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ResizableButton(
-              "0",
-              onPressed: () {
-                calculatorList.addInputNumber("0", selectedcalculatorId);
-              },
-              isPushed: false,
-              color: ZeroButtonStyle.color,
-              pushedColor: ZeroButtonStyle.pushedColor,
-              width: zeroButtonWidth,
-              height: buttonHeight,
-              radius: CommonButtonStyle.radius,
-              margin: buttonMargin,
-            ),
-            ResizableButton(
-              ".",
-              onPressed: () {
-                calculatorList.addPeriod(selectedcalculatorId);
-              },
-              isPushed: false,
-              color: NumberButtonStyle.color,
-              pushedColor: NumberButtonStyle.pushedColor,
-              width: buttonWidth,
-              height: buttonHeight,
-              radius: CommonButtonStyle.radius,
-              margin: buttonMargin,
-            ),
-            ResizableButton(
-              "=",
-              onPressed: () {
-                calculatorList.setEqual(selectedcalculatorId);
-              },
-              isPushed: false,
-              color: FunctionButtonStyle.color,
-              pushedColor: FunctionButtonStyle.pushedColor,
-              width: buttonWidth,
-              height: buttonHeight,
-              radius: CommonButtonStyle.radius,
-              margin: buttonMargin,
-            ),
-          ],
-        )
-      ],
+                      isPushed: false,
+                      color: FunctionButtonStyle.color,
+                      pushedColor: FunctionButtonStyle.pushedColor,
+                      width: buttonWidth,
+                      height: buttonHeight,
+                      radius: CommonButtonStyle.radius,
+                      margin: buttonMargin,
+                      textColor: FunctionButtonStyle.textColor),
+              ResizableButton(
+                "hoge",
+                onPressed: () {
+                  print("hoge");
+                },
+                isPushed: false,
+                color: FunctionButtonStyle.color,
+                pushedColor: FunctionButtonStyle.pushedColor,
+                width: buttonWidth,
+                height: buttonHeight,
+                radius: CommonButtonStyle.radius,
+                margin: buttonMargin,
+                textColor: FunctionButtonStyle.textColor,
+              ),
+              ResizableButton(
+                "%",
+                onPressed: () {
+                  print("%");
+                },
+                isPushed: false,
+                color: FunctionButtonStyle.color,
+                pushedColor: FunctionButtonStyle.pushedColor,
+                width: buttonWidth,
+                height: buttonHeight,
+                radius: CommonButtonStyle.radius,
+                margin: buttonMargin,
+                textColor: FunctionButtonStyle.textColor,
+              ),
+              ResizableButton(
+                "/",
+                onPressed: () {
+                  calculatorList.setOperator("/", selectedcalculatorId);
+                },
+                isPushed: false,
+                color: OperatorButtonStyle.color,
+                pushedColor: FunctionButtonStyle.pushedColor,
+                width: buttonWidth,
+                height: buttonHeight,
+                radius: CommonButtonStyle.radius,
+                margin: buttonMargin,
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ResizableButton(
+                "7",
+                onPressed: () {
+                  calculatorList.addInputNumber("7", selectedcalculatorId);
+                },
+                isPushed: false,
+                color: NumberButtonStyle.color,
+                pushedColor: NumberButtonStyle.pushedColor,
+                width: buttonWidth,
+                height: buttonHeight,
+                radius: CommonButtonStyle.radius,
+                margin: buttonMargin,
+              ),
+              ResizableButton(
+                "8",
+                onPressed: () {
+                  calculatorList.addInputNumber("8", selectedcalculatorId);
+                },
+                isPushed: false,
+                color: NumberButtonStyle.color,
+                pushedColor: NumberButtonStyle.pushedColor,
+                width: buttonWidth,
+                height: buttonHeight,
+                radius: CommonButtonStyle.radius,
+                margin: buttonMargin,
+              ),
+              ResizableButton(
+                "9",
+                onPressed: () {
+                  calculatorList.addInputNumber("9", selectedcalculatorId);
+                },
+                isPushed: false,
+                color: NumberButtonStyle.color,
+                pushedColor: NumberButtonStyle.pushedColor,
+                width: buttonWidth,
+                height: buttonHeight,
+                radius: CommonButtonStyle.radius,
+                margin: buttonMargin,
+              ),
+              ResizableButton(
+                "×",
+                onPressed: () {
+                  calculatorList.setOperator("*", selectedcalculatorId);
+                },
+                isPushed: false,
+                color: OperatorButtonStyle.color,
+                pushedColor: FunctionButtonStyle.pushedColor,
+                width: buttonWidth,
+                height: buttonHeight,
+                radius: CommonButtonStyle.radius,
+                margin: buttonMargin,
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ResizableButton(
+                "4",
+                onPressed: () {
+                  calculatorList.addInputNumber("4", selectedcalculatorId);
+                },
+                isPushed: false,
+                color: NumberButtonStyle.color,
+                pushedColor: NumberButtonStyle.pushedColor,
+                width: buttonWidth,
+                height: buttonHeight,
+                radius: CommonButtonStyle.radius,
+                margin: buttonMargin,
+              ),
+              ResizableButton(
+                "5",
+                onPressed: () {
+                  calculatorList.addInputNumber("5", selectedcalculatorId);
+                },
+                isPushed: false,
+                color: NumberButtonStyle.color,
+                pushedColor: NumberButtonStyle.pushedColor,
+                width: buttonWidth,
+                height: buttonHeight,
+                radius: CommonButtonStyle.radius,
+                margin: buttonMargin,
+              ),
+              ResizableButton(
+                "7",
+                onPressed: () {
+                  calculatorList.addInputNumber("7", selectedcalculatorId);
+                },
+                isPushed: false,
+                color: NumberButtonStyle.color,
+                pushedColor: NumberButtonStyle.pushedColor,
+                width: buttonWidth,
+                height: buttonHeight,
+                radius: CommonButtonStyle.radius,
+                margin: buttonMargin,
+              ),
+              ResizableButton(
+                "-",
+                onPressed: () {
+                  calculatorList.setOperator("-", selectedcalculatorId);
+                },
+                isPushed: false,
+                color: OperatorButtonStyle.color,
+                pushedColor: FunctionButtonStyle.pushedColor,
+                width: buttonWidth,
+                height: buttonHeight,
+                radius: CommonButtonStyle.radius,
+                margin: buttonMargin,
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ResizableButton(
+                "1",
+                onPressed: () {
+                  calculatorList.addInputNumber("1", selectedcalculatorId);
+                },
+                isPushed: false,
+                color: NumberButtonStyle.color,
+                pushedColor: NumberButtonStyle.pushedColor,
+                width: buttonWidth,
+                height: buttonHeight,
+                radius: CommonButtonStyle.radius,
+                margin: buttonMargin,
+              ),
+              ResizableButton(
+                "2",
+                onPressed: () {
+                  calculatorList.addInputNumber("2", selectedcalculatorId);
+                },
+                isPushed: false,
+                color: NumberButtonStyle.color,
+                pushedColor: NumberButtonStyle.pushedColor,
+                width: buttonWidth,
+                height: buttonHeight,
+                radius: CommonButtonStyle.radius,
+                margin: buttonMargin,
+              ),
+              ResizableButton(
+                "3",
+                onPressed: () {
+                  calculatorList.addInputNumber("3", selectedcalculatorId);
+                },
+                isPushed: false,
+                color: NumberButtonStyle.color,
+                pushedColor: NumberButtonStyle.pushedColor,
+                width: buttonWidth,
+                height: buttonHeight,
+                radius: CommonButtonStyle.radius,
+                margin: buttonMargin,
+              ),
+              ResizableButton(
+                "+",
+                onPressed: () {
+                  calculatorList.setOperator("+", selectedcalculatorId);
+                },
+                isPushed: false,
+                color: OperatorButtonStyle.color,
+                pushedColor: FunctionButtonStyle.pushedColor,
+                width: buttonWidth,
+                height: buttonHeight,
+                radius: CommonButtonStyle.radius,
+                margin: buttonMargin,
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ResizableButton(
+                "0",
+                onPressed: () {
+                  calculatorList.addInputNumber("0", selectedcalculatorId);
+                },
+                isPushed: false,
+                color: ZeroButtonStyle.color,
+                pushedColor: ZeroButtonStyle.pushedColor,
+                width: zeroButtonWidth,
+                height: buttonHeight,
+                radius: CommonButtonStyle.radius,
+                margin: buttonMargin,
+              ),
+              ResizableButton(
+                ".",
+                onPressed: () {
+                  calculatorList.addPeriod(selectedcalculatorId);
+                },
+                isPushed: false,
+                color: NumberButtonStyle.color,
+                pushedColor: NumberButtonStyle.pushedColor,
+                width: buttonWidth,
+                height: buttonHeight,
+                radius: CommonButtonStyle.radius,
+                margin: buttonMargin,
+              ),
+              ResizableButton(
+                "=",
+                onPressed: () {
+                  calculatorList.setEqual(selectedcalculatorId);
+                },
+                isPushed: false,
+                color: OperatorButtonStyle.color,
+                pushedColor: FunctionButtonStyle.pushedColor,
+                width: buttonWidth,
+                height: buttonHeight,
+                radius: CommonButtonStyle.radius,
+                margin: buttonMargin,
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }
