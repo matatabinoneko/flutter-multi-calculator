@@ -6,21 +6,23 @@ class CalculatorWindow extends StatelessWidget {
   final String name;
   final void Function() deleteCalc;
   final void Function(String) setName;
+  final bool isSelected;
 
   const CalculatorWindow(
       {Key? key,
       this.result = "",
       required this.name,
       required this.deleteCalc,
-      required this.setName})
+      required this.setName,
+      required this.isSelected})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final sizeConfig = SizeConfig(context);
     return Container(
-      color: const Color(0xFF33383F),
       padding: const EdgeInsets.fromLTRB(35, 25, 35, 45),
+      color: isSelected ? const Color(0xCC3B3B3B) : const Color(0xFF33383F),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
