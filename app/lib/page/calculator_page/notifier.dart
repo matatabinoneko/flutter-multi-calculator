@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:calculator/core/uuid.dart';
 import 'package:calculator/static/size.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,10 +29,18 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
   }
 
   void deleteCaluculator(String id) {
+    final index = _getIndex(id);
     if (1 < state.length) {
       state = state
           .where((CalculatorModel calculator) => calculator.id != id)
           .toList();
+      String selectedId =
+          ref.watch(selectedCalculatorIdProvider.notifier).state;
+      if (selectedId == id) {
+        ref
+            .watch(selectedCalculatorIdProvider.notifier)
+            .setId(state[min(state.length - 1, index)].id);
+      }
     }
   }
 
