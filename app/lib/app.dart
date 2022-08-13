@@ -10,7 +10,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Multi Calculator',
       theme: defaultTheme,
-      home: const CalculatorPage(),
+      home: CalculatorPage(),
     );
   }
 }

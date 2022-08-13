@@ -1,3 +1,6 @@
+import 'package:calculator/static/size.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'model.dart';
 import 'notifier.dart';
 
@@ -15,3 +18,9 @@ final calculatorListProvider =
 final calculatorHeightSizeProvider =
     StateNotifierProvider<CalculatorHeightSizeNotifier, double>(
         (ref) => CalculatorHeightSizeNotifier());
+
+final isClosedSlidingUpPanelProvider = Provider<bool>((ref) {
+  double minHeight = SizeConfig.minCalculatorHeight;
+  final currentHeight = ref.watch(calculatorHeightSizeProvider);
+  return minHeight == currentHeight;
+});
