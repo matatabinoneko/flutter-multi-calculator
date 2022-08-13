@@ -47,7 +47,7 @@ class CalculatorButtons extends ConsumerWidget {
                 textColor: FunctionButtonStyle.textColor,
               ),
               ResizableButton(
-                "hoge",
+                "+/-",
                 onPressed: () {
                   print("hoge");
                 },
@@ -75,7 +75,7 @@ class CalculatorButtons extends ConsumerWidget {
                 textColor: FunctionButtonStyle.textColor,
               ),
               ResizableButton(
-                "/",
+                "÷",
                 onPressed: () {
                   calculatorList.setOperator("/", selectedcalculatorId);
                 },
@@ -275,6 +275,7 @@ class CalculatorButtons extends ConsumerWidget {
                 height: buttonHeight,
                 radius: CommonButtonStyle.radius,
                 margin: buttonMargin,
+                alignment: const Alignment(-0.65, 0.0),
               ),
               ResizableButton(
                 ".",

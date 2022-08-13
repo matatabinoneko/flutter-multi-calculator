@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'style.dart';
 
+import 'package:google_fonts/google_fonts.dart';
+
 class ResizableButton extends StatelessWidget {
   final String text;
   final void Function() onPressed;
@@ -12,6 +14,7 @@ class ResizableButton extends StatelessWidget {
   final double radius;
   final double margin;
   final Color? textColor;
+  final Alignment alignment;
 
   const ResizableButton(this.text,
       {Key? key,
@@ -22,8 +25,9 @@ class ResizableButton extends StatelessWidget {
       required this.width,
       required this.height,
       required this.radius,
+      this.margin = 0.0,
       this.textColor,
-      this.margin = 0.0})
+      this.alignment = Alignment.center})
       : super(key: key);
 
   @override
@@ -33,10 +37,18 @@ class ResizableButton extends StatelessWidget {
       child: SizedBox(
         width: width,
         child: MaterialButton(
-          child: Text(text),
+          child: Align(
+            alignment: alignment,
+            child: Text(
+              text,
+              style: GoogleFonts.inter(
+                color: textColor ?? ButtonCSS.textColor,
+                fontSize: height * 0.35
+                ),
+              ),
+          ),
           onPressed: onPressed,
           color: isPushed ? pushedColor : color,
-          textColor: textColor == null ? ButtonCSS.textColor : textColor,
           height: height,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(radius)),
