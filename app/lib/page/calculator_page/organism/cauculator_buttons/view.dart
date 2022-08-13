@@ -35,6 +35,12 @@ class CalculatorButtons extends ConsumerWidget {
                 calculatorListState[index].pushedButtonHist.length - 1] ==
             "C";
 
+    final pushedButtonType = ref.watch(pushedButtonProvider);
+
+    void onPressed(String buttonType) {
+      ref.watch(pushedButtonProvider.notifier).setButtonType(buttonType);
+    }
+
     // return Column(
     //   children: [
     //     Row(
@@ -334,6 +340,7 @@ class CalculatorButtons extends ConsumerWidget {
               isPushClear
                   ? ResizableButton("AC", onPressed: () {
                       calculatorList.allClear(selectedcalculatorId);
+                      onPressed("AC");
                     },
                       isPushed: false,
                       color: FunctionButtonStyle.color,
@@ -345,6 +352,7 @@ class CalculatorButtons extends ConsumerWidget {
                       textColor: FunctionButtonStyle.textColor)
                   : ResizableButton("C", onPressed: () {
                       calculatorList.clear(selectedcalculatorId);
+                      onPressed("C");
                     },
                       isPushed: false,
                       color: FunctionButtonStyle.color,
@@ -358,6 +366,7 @@ class CalculatorButtons extends ConsumerWidget {
                 "+/-",
                 onPressed: () {
                   print("hoge");
+                  onPressed("+/-");
                 },
                 isPushed: false,
                 color: FunctionButtonStyle.color,
@@ -372,6 +381,7 @@ class CalculatorButtons extends ConsumerWidget {
                 "%",
                 onPressed: () {
                   print("%");
+                  onPressed("%");
                 },
                 isPushed: false,
                 color: FunctionButtonStyle.color,
@@ -386,10 +396,11 @@ class CalculatorButtons extends ConsumerWidget {
                 "÷",
                 onPressed: () {
                   calculatorList.setOperator("/", selectedcalculatorId);
+                  onPressed("÷");
                 },
-                isPushed: false,
+                isPushed: pushedButtonType == "÷",
                 color: OperatorButtonStyle.color,
-                pushedColor: FunctionButtonStyle.pushedColor,
+                pushedColor: OperatorButtonStyle.pushedColor,
                 width: buttonWidth,
                 height: buttonHeight,
                 radius: CommonButtonStyle.radius,
@@ -404,6 +415,7 @@ class CalculatorButtons extends ConsumerWidget {
                 "7",
                 onPressed: () {
                   calculatorList.addInputNumber("7", selectedcalculatorId);
+                  onPressed("7");
                 },
                 isPushed: false,
                 color: NumberButtonStyle.color,
@@ -417,6 +429,7 @@ class CalculatorButtons extends ConsumerWidget {
                 "8",
                 onPressed: () {
                   calculatorList.addInputNumber("8", selectedcalculatorId);
+                  onPressed("8");
                 },
                 isPushed: false,
                 color: NumberButtonStyle.color,
@@ -430,6 +443,7 @@ class CalculatorButtons extends ConsumerWidget {
                 "9",
                 onPressed: () {
                   calculatorList.addInputNumber("9", selectedcalculatorId);
+                  onPressed("9");
                 },
                 isPushed: false,
                 color: NumberButtonStyle.color,
@@ -443,10 +457,11 @@ class CalculatorButtons extends ConsumerWidget {
                 "×",
                 onPressed: () {
                   calculatorList.setOperator("*", selectedcalculatorId);
+                  onPressed("×");
                 },
-                isPushed: false,
+                isPushed: pushedButtonType == "×",
                 color: OperatorButtonStyle.color,
-                pushedColor: FunctionButtonStyle.pushedColor,
+                pushedColor: OperatorButtonStyle.pushedColor,
                 width: buttonWidth,
                 height: buttonHeight,
                 radius: CommonButtonStyle.radius,
@@ -461,6 +476,7 @@ class CalculatorButtons extends ConsumerWidget {
                 "4",
                 onPressed: () {
                   calculatorList.addInputNumber("4", selectedcalculatorId);
+                  onPressed("4");
                 },
                 isPushed: false,
                 color: NumberButtonStyle.color,
@@ -474,6 +490,7 @@ class CalculatorButtons extends ConsumerWidget {
                 "5",
                 onPressed: () {
                   calculatorList.addInputNumber("5", selectedcalculatorId);
+                  onPressed("5");
                 },
                 isPushed: false,
                 color: NumberButtonStyle.color,
@@ -484,9 +501,10 @@ class CalculatorButtons extends ConsumerWidget {
                 margin: buttonMargin,
               ),
               ResizableButton(
-                "7",
+                "6",
                 onPressed: () {
-                  calculatorList.addInputNumber("7", selectedcalculatorId);
+                  calculatorList.addInputNumber("6", selectedcalculatorId);
+                  onPressed("6");
                 },
                 isPushed: false,
                 color: NumberButtonStyle.color,
@@ -500,10 +518,11 @@ class CalculatorButtons extends ConsumerWidget {
                 "-",
                 onPressed: () {
                   calculatorList.setOperator("-", selectedcalculatorId);
+                  onPressed("-");
                 },
-                isPushed: false,
+                isPushed: pushedButtonType == "-",
                 color: OperatorButtonStyle.color,
-                pushedColor: FunctionButtonStyle.pushedColor,
+                pushedColor: OperatorButtonStyle.pushedColor,
                 width: buttonWidth,
                 height: buttonHeight,
                 radius: CommonButtonStyle.radius,
@@ -518,6 +537,7 @@ class CalculatorButtons extends ConsumerWidget {
                 "1",
                 onPressed: () {
                   calculatorList.addInputNumber("1", selectedcalculatorId);
+                  onPressed("1");
                 },
                 isPushed: false,
                 color: NumberButtonStyle.color,
@@ -531,6 +551,7 @@ class CalculatorButtons extends ConsumerWidget {
                 "2",
                 onPressed: () {
                   calculatorList.addInputNumber("2", selectedcalculatorId);
+                  onPressed("2");
                 },
                 isPushed: false,
                 color: NumberButtonStyle.color,
@@ -544,6 +565,7 @@ class CalculatorButtons extends ConsumerWidget {
                 "3",
                 onPressed: () {
                   calculatorList.addInputNumber("3", selectedcalculatorId);
+                  onPressed("3");
                 },
                 isPushed: false,
                 color: NumberButtonStyle.color,
@@ -557,10 +579,11 @@ class CalculatorButtons extends ConsumerWidget {
                 "+",
                 onPressed: () {
                   calculatorList.setOperator("+", selectedcalculatorId);
+                  onPressed("+");
                 },
-                isPushed: false,
+                isPushed: pushedButtonType == "+",
                 color: OperatorButtonStyle.color,
-                pushedColor: FunctionButtonStyle.pushedColor,
+                pushedColor: OperatorButtonStyle.pushedColor,
                 width: buttonWidth,
                 height: buttonHeight,
                 radius: CommonButtonStyle.radius,
@@ -575,6 +598,7 @@ class CalculatorButtons extends ConsumerWidget {
                 "0",
                 onPressed: () {
                   calculatorList.addInputNumber("0", selectedcalculatorId);
+                  onPressed("0");
                 },
                 isPushed: false,
                 color: ZeroButtonStyle.color,
@@ -589,6 +613,7 @@ class CalculatorButtons extends ConsumerWidget {
                 ".",
                 onPressed: () {
                   calculatorList.addPeriod(selectedcalculatorId);
+                  onPressed(".");
                 },
                 isPushed: false,
                 color: NumberButtonStyle.color,
@@ -602,10 +627,11 @@ class CalculatorButtons extends ConsumerWidget {
                 "=",
                 onPressed: () {
                   calculatorList.setEqual(selectedcalculatorId);
+                  onPressed("=");
                 },
                 isPushed: false,
                 color: OperatorButtonStyle.color,
-                pushedColor: FunctionButtonStyle.pushedColor,
+                pushedColor: OperatorButtonStyle.pushedColor,
                 width: buttonWidth,
                 height: buttonHeight,
                 radius: CommonButtonStyle.radius,

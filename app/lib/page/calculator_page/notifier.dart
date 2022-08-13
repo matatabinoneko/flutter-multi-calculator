@@ -373,3 +373,11 @@ class CalculatorHeightSizeNotifier extends StateNotifier<double> {
     this.state = state;
   }
 }
+
+class PushedButtonNotifier extends StateNotifier<String> {
+  PushedButtonNotifier() : super("");
+
+  void setButtonType(String type) {
+    state = type;
+  }
+}

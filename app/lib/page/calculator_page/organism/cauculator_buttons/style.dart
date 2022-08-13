@@ -15,7 +15,7 @@ class ZeroButtonStyle {
 }
 
 class OperatorButtonStyle {
-  static Color pushedColor = Colors.green;
+  static Color pushedColor = const Color(0xFFCC7E08);
   static Color color = const Color(0xFFFF9F0B);
 }
 

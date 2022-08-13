@@ -24,3 +24,7 @@ final isClosedSlidingUpPanelProvider = Provider<bool>((ref) {
   final currentHeight = ref.watch(calculatorHeightSizeProvider);
   return minHeight == currentHeight;
 });
+
+final pushedButtonProvider =
+    StateNotifierProvider<PushedButtonNotifier, String>(
+        (ref) => PushedButtonNotifier());
