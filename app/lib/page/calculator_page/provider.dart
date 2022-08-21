@@ -30,6 +30,10 @@ final isClosedSlidingUpPanelProvider = Provider<bool>((ref) {
   return minHeight == currentHeight;
 });
 
+final pushedButtonProvider =
+    StateNotifierProvider<PushedButtonNotifier, String>(
+        (ref) => PushedButtonNotifier());
+
 final slidingUpPanelRatioProvider = StateProvider<double?>((ref) => null);
 
 final isOpenedSlidingUpPanelProvider = Provider<bool>((ref) {

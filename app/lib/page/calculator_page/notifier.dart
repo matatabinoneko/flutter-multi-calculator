@@ -387,6 +387,14 @@ class CalculatorHeightSizeNotifier extends StateNotifier<double> {
   }
 }
 
+class PushedButtonNotifier extends StateNotifier<String> {
+  PushedButtonNotifier() : super("");
+
+  void setButtonType(String type) {
+    state = type;
+  }
+}
+
 class WindowHeightSizeNotifier extends StateNotifier<double> {
   WindowHeightSizeNotifier() : super(SizeConfig.minWindowHeight);
 
