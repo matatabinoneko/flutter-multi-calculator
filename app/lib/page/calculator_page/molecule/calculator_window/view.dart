@@ -1,7 +1,9 @@
 import 'package:calculator/static/size.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../../provider.dart';
 
-class CalculatorWindow extends StatelessWidget {
+class CalculatorWindow extends ConsumerWidget {
   final String result;
   final String name;
   final void Function() deleteCalc;
@@ -18,10 +20,17 @@ class CalculatorWindow extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final sizeConfig = SizeConfig(context);
+    final windowHeightSize = ref.watch(windowHeightSizeProvider);
+    const leftPad = 35.0;
+    const topPad = 5.0;
+    const rightPad = 35.0;
+    const bottomPad = 0.0;
+
     return Container(
-      padding: const EdgeInsets.fromLTRB(35, 25, 35, 45),
+      height: windowHeightSize - (topPad + bottomPad),
+      padding: const EdgeInsets.fromLTRB(leftPad, topPad, rightPad, bottomPad),
       color: isSelected ? const Color(0xCC3B3B3B) : const Color(0xFF33383F),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,

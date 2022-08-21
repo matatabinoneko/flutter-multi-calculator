@@ -16,6 +16,8 @@ class SizeConfig {
   late double calculatorNameTextWidth;
   static double minCalculatorSnapPoint = 0.5;
   late double snapPointHeight;
+  late double maxWindowHeight;
+  static double minWindowHeight = 120.0;
 
   SizeConfig(BuildContext context) {
     _mediaQueryData = MediaQuery.of(context);
@@ -24,6 +26,8 @@ class SizeConfig {
     statusBarHeight = _mediaQueryData!.padding.top;
     bottomBarHeight = _mediaQueryData!.padding.bottom;
     maxCalculatorHeight = screenWidth * 5 / 4;
+    maxWindowHeight =
+        screenHeight - statusBarHeight - headerHeight - maxCalculatorHeight;
     minCalculatorHeight = 30;
     headerHeight = 40;
     calculatorNameTextWidth = screenWidth * 0.3;
