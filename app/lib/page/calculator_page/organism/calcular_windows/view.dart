@@ -4,6 +4,7 @@ import '../../provider.dart';
 import 'package:calculator/static/size.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 class CalculatorWindows extends ConsumerWidget {
   const CalculatorWindows({
@@ -15,6 +16,12 @@ class CalculatorWindows extends ConsumerWidget {
     final sizeConfig = SizeConfig(context);
     final calculatorList = ref.watch(calculatorListProvider);
     final selectedId = ref.watch(selectedCalculatorIdProvider);
+    final scrollController = ref.watch(scrollControllerProvider);
+    final isSlidingPanelOpened = ref.watch(isOpenedSlidingUpPanelProvider);
+    final calculatorHeight = ref.watch(calculatorHeightSizeProvider);
+    final physics = isSlidingPanelOpened
+        ? const NeverScrollableScrollPhysics()
+        : const AlwaysScrollableScrollPhysics();
 
     void deleteCalc(int index) {
       final id = calculatorList[index].id;
@@ -24,6 +31,9 @@ class CalculatorWindows extends ConsumerWidget {
     void onTap(int index) {
       final id = calculatorList[index].id;
       ref.watch(selectedCalculatorIdProvider.notifier).setId(id);
+
+      scrollController.scrollToIndex(index,
+          preferPosition: AutoScrollPosition.begin);
     }
 
     void setName(int index, String name) {
@@ -38,9 +48,10 @@ class CalculatorWindows extends ConsumerWidget {
     return Container(
       color: const Color(0xFF33383F),
       padding: EdgeInsets.only(
-          top: sizeConfig.statusBarHeight,
-          bottom: ref.watch(calculatorHeightSizeProvider)),
+          top: sizeConfig.statusBarHeight, bottom: calculatorHeight),
       child: ReorderableListView(
+        physics: physics,
+        scrollController: scrollController,
         onReorder: (int oldIndex, int newIndex) {
           ref
               .watch(calculatorListProvider.notifier)
@@ -49,8 +60,10 @@ class CalculatorWindows extends ConsumerWidget {
         children: <Widget>[
           for (final index
               in List<int>.generate(calculatorList.length, (i) => i))
-            Material(
+            AutoScrollTag(
               key: Key(calculatorList[index].id),
+              controller: scrollController,
+              index: index,
               child: InkWell(
                 child: CalculatorWindow(
                     result: getDisplayResult(index),

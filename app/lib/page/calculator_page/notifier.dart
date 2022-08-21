@@ -101,6 +101,10 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
     return state.map((e) => e.id).toList().indexOf(id);
   }
 
+  int getSelectedIndex() {
+    return _getIndex(ref.watch(selectedCalculatorIdProvider.notifier).state);
+  }
+
   void _changeState(int index, CalculatorModel model) {
     state = [...state.sublist(0, index), model, ...state.sublist(index + 1)];
   }
@@ -368,6 +372,14 @@ class SelectedIdNotifier extends StateNotifier<String> {
 
 class CalculatorHeightSizeNotifier extends StateNotifier<double> {
   CalculatorHeightSizeNotifier() : super(SizeConfig.minCalculatorHeight);
+
+  void setState(double state) {
+    this.state = state;
+  }
+}
+
+class WindowHeightSizeNotifier extends StateNotifier<double> {
+  WindowHeightSizeNotifier() : super(SizeConfig.minWindowHeight);
 
   void setState(double state) {
     this.state = state;
