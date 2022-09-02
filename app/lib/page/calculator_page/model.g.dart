@@ -9,7 +9,7 @@ part of 'model.dart';
 _$_CalculatorModel _$$_CalculatorModelFromJson(Map<String, dynamic> json) =>
     _$_CalculatorModel(
       json['id'] as String,
-      number: json['number'] as String? ?? "",
+      number: json['number'] as String? ?? "0",
       operator: json['operator'] as String? ?? "",
       pushedButtonHist: (json['pushedButtonHist'] as List<dynamic>?)
               ?.map((e) => e as String)

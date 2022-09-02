@@ -7,7 +7,7 @@ part 'model.g.dart';
 abstract class CalculatorModel with _$CalculatorModel {
   factory CalculatorModel(
     String id, {
-    @Default("") String number,
+    @Default("0") String number,
     @Default("") String operator,
     @Default([]) List<String> pushedButtonHist,
     @Default(["0"]) List<String> calcHist,
