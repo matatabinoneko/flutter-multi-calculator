@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:calculator/page/calculator_page/molecule/collapsed_bar/view.dart';
+import 'package:go_router/go_router.dart';
 
 import 'provider.dart';
 import 'package:flutter/material.dart';
@@ -51,8 +52,9 @@ class CalculatorPage extends ConsumerWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(SizeConfig.headerHeight),
         child: AppBar(
-          leading: const Icon(
-            Icons.settings,
+          leading: IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () => GoRouter.of(context).go('/setting'),
           ),
           actions: [
             IconButton(
