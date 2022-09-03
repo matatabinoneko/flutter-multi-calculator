@@ -384,10 +384,11 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
 
   void recoverData() {
     try {
-      final jsonData = sharedPreferences?.getStringList(storageKey) ?? [];
+      List<String> jsonData =
+          sharedPreferences?.getStringList(storageKey) ?? [];
       List<CalculatorModel> calcList = List<CalculatorModel>.from(
           jsonData.map<CalculatorModel>(
-              (dynamic data) => CalculatorModel.fromJson(data)));
+              (String data) => CalculatorModel.fromJson(jsonDecode(data))));
       if (calcList.isNotEmpty) {
         state = calcList;
       } else {
