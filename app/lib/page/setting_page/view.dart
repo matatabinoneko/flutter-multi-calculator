@@ -5,7 +5,8 @@ import 'package:url_launcher/url_launcher.dart';
 class SettingPage extends ConsumerWidget {
   SettingPage({Key? key}) : super(key: key);
 
-  final Uri _url = Uri.parse('https://flutter.dev');
+  final Uri _url = Uri.parse(
+      'https://matatabinoneko.github.io/flutter-multi-calculator/privacy-policy');
   Future<void> _launchUrl() async {
     if (!await launchUrl(_url)) {
       throw 'Could not launch $_url';
