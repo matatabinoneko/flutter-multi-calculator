@@ -19,6 +19,7 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
   final ContextModel _cm = ContextModel();
   final Parser _p = Parser();
   SharedPreferences? sharedPreferences;
+  late final scrollController = ref.watch(scrollControllerProvider);
 
   CalculatorListNotifier(this.ref) : super([]) {}
 
@@ -28,6 +29,7 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
       CalculatorModel(createUUID(), name: "電卓${state.length}")
     ];
     saveData();
+    scrollController.scrollToIndex(state.length - 1);
   }
 
   void deleteCaluculator(String id) {
