@@ -176,7 +176,7 @@ class __$$_CalculatorModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_CalculatorModel implements _CalculatorModel {
   _$_CalculatorModel(this.id,
-      {this.number = "",
+      {this.number = "0",
       this.operator = "",
       final List<String> pushedButtonHist = const [],
       final List<String> calcHist = const ["0"],
@@ -274,19 +274,19 @@ abstract class _CalculatorModel implements CalculatorModel {
       _$_CalculatorModel.fromJson;
 
   @override
-  String get id => throw _privateConstructorUsedError;
+  String get id;
   @override
-  String get number => throw _privateConstructorUsedError;
+  String get number;
   @override
-  String get operator => throw _privateConstructorUsedError;
+  String get operator;
   @override
-  List<String> get pushedButtonHist => throw _privateConstructorUsedError;
+  List<String> get pushedButtonHist;
   @override
-  List<String> get calcHist => throw _privateConstructorUsedError;
+  List<String> get calcHist;
   @override
-  String get buffer => throw _privateConstructorUsedError;
+  String get buffer;
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
   @JsonKey(ignore: true)
   _$$_CalculatorModelCopyWith<_$_CalculatorModel> get copyWith =>

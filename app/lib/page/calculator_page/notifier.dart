@@ -66,7 +66,9 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
         : state[index]
             .pushedButtonHist[state[index].pushedButtonHist.length - 1];
 
-    if (lastPushedButton == null || lastPushedButton == equal) {
+    if (lastPushedButton == null) {
+      return inputNumber;
+    } else if (lastPushedButton == equal) {
       return result;
     } else if (_validOperators.contains(lastPushedButton)) {
       if ("*/".contains(lastPushedButton)) {
@@ -84,6 +86,7 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
               equal) {
         return state[index].calcHist.join("");
       } else {
+        print(inputNumber);
         return inputNumber;
       }
     } else if (lastPushedButton == "C") {
@@ -158,7 +161,7 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
 
   CalculatorModel initializeCalc(CalculatorModel calc) {
     return calc.copyWith(
-        number: "",
+        number: "0",
         operator: "",
         pushedButtonHist: [],
         calcHist: ["0"],
@@ -169,6 +172,46 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
   void allClear(String id) {
     final index = state.map((e) => e.id).toList().indexOf(id);
     final calc = initializeCalc(state[index]);
+    _changeState(index, calc);
+  }
+
+  void changeSign(String id) {
+    final index = _getIndex(id);
+
+    final pushedButtonHist = state[index].pushedButtonHist.isNotEmpty &&
+            _validNumbers.contains(state[index]
+                .pushedButtonHist[state[index].pushedButtonHist.length - 1])
+        ? [...state[index].pushedButtonHist]
+        : [...state[index].pushedButtonHist, "0"];
+
+    final lastPushedButtonHist = state[index].pushedButtonHist.isNotEmpty
+        ? state[index]
+            .pushedButtonHist[state[index].pushedButtonHist.length - 1]
+        : "";
+    CalculatorModel? calc;
+    if (_validOperators.contains(lastPushedButtonHist)) {
+      calc = state[index]
+          .copyWith(number: "-0", pushedButtonHist: pushedButtonHist);
+    } else if (state[index].pushedButtonHist.isEmpty ||
+        _validNumbers.contains(lastPushedButtonHist) ||
+        lastPushedButtonHist == 'C') {
+      //直前がnumberの時・直前がoperatorの時：numberに「-」を追加する
+      final number = state[index].number.isEmpty
+          ? '-0'
+          : state[index].number[0] == '-'
+              ? state[index].number.substring(1)
+              : "-${state[index].number}";
+      calc = state[index]
+          .copyWith(number: number, pushedButtonHist: pushedButtonHist);
+    } else if (state[index]
+            .pushedButtonHist[state[index].pushedButtonHist.length - 1] ==
+        equal) {
+      //直前がequalのとき・calcHistに「*-1」を追加する
+      final calcHist = ['('] + state[index].calcHist + [") * -1"];
+      calc = state[index].copyWith(calcHist: calcHist);
+    } else {
+      throw const FormatException("changeSign:invalid input");
+    }
     _changeState(index, calc);
   }
 
@@ -202,6 +245,14 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
   //電卓の数字ボタン
   void addInputNumber(String input, String id) {
     final index = _getIndex(id);
+    //numberが0の時は0を入力できない
+    if (input == '0' &&
+        doCalc(index) == '0' &&
+        state[index]
+                .pushedButtonHist[state[index].pushedButtonHist.length - 1] !=
+            '.') {
+      return;
+    }
 
     final pushedButtonHist = state[index].pushedButtonHist.isNotEmpty &&
             _validNumbers.contains(state[index]
@@ -225,11 +276,13 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
                   .pushedButtonHist[state[index].pushedButtonHist.length - 3] ==
               equal) {
         calc = state[index].copyWith(
-            calcHist: [...state[index].calcHist, input],
+            calcHist: [...state[index].calcHist, "($input)"],
             pushedButtonHist: pushedButtonHist);
       } else {
         calc = state[index].copyWith(
-            number: "${state[index].number}$input",
+            number: state[index].number == '-0'
+                ? "-$input"
+                : "${state[index].number}$input",
             pushedButtonHist: pushedButtonHist);
       }
     } else if (state[index]
@@ -335,8 +388,9 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
     final operator = state[index].operator;
     final number = state[index].number;
     final result = doCalc(index);
-
-    if (_validNumbers.contains(state[index]
+    if (state[index].pushedButtonHist.isEmpty) {
+      calc = state[index].copyWith();
+    } else if (_validNumbers.contains(state[index]
         .pushedButtonHist[state[index].pushedButtonHist.length - 1])) {
       calc = state[index].copyWith(
           calcHist: operator.isNotEmpty
@@ -350,6 +404,11 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
           calcHist: [result, operator, number],
           pushedButtonHist: pushedButtonHist,
           number: result,
+          buffer: result);
+    } else if (operator.isEmpty) {
+      calc = state[index].copyWith(
+          calcHist: [result],
+          pushedButtonHist: pushedButtonHist,
           buffer: result);
     } else if (state[index]
                 .pushedButtonHist[state[index].pushedButtonHist.length - 1] ==
