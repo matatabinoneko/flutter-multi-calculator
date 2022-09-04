@@ -1,31 +1,33 @@
+import 'dart:convert';
 import 'dart:math';
 import 'package:calculator/core/uuid.dart';
 import 'package:calculator/static/size.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:math_expressions/math_expressions.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'model.dart';
 import 'provider.dart';
 
 class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
   Ref ref;
+  final storageKey = 'claculators';
   final String _validNumbers = "0123456789.";
   final String _validOperators = "+-*/";
   final String equal = "=";
   final ContextModel _cm = ContextModel();
   final Parser _p = Parser();
+  SharedPreferences? sharedPreferences;
 
-  CalculatorListNotifier(this.ref) : super([]) {
-    addCalculator();
-    ref.watch(selectedCalculatorIdProvider.notifier).setId(state[0].id);
-  }
+  CalculatorListNotifier(this.ref) : super([]) {}
 
   void addCalculator() {
     state = [
       ...state,
       CalculatorModel(createUUID(), name: "電卓${state.length}")
     ];
+    saveData();
   }
 
   void deleteCaluculator(String id) {
@@ -42,6 +44,7 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
             .setId(state[min(state.length - 1, index)].id);
       }
     }
+    saveData();
   }
 
   bool isPushClear(String id) {
@@ -97,6 +100,7 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
     final CalculatorModel item = newCalcList.removeAt(oldIndex);
     newCalcList.insert(newIndex, item);
     state = [...newCalcList];
+    saveData();
   }
 
   void setName(String id, String name) {
@@ -104,6 +108,7 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
       for (final calculator in state)
         if (calculator.id == id) calculator.copyWith(name: name) else calculator
     ];
+    saveData();
   }
 
   int _getIndex(String id) {
@@ -116,6 +121,7 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
 
   void _changeState(int index, CalculatorModel model) {
     state = [...state.sublist(0, index), model, ...state.sublist(index + 1)];
+    saveData();
   }
 
   // 電卓のCボタン
@@ -368,6 +374,36 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
         .parse(state[index].calcHist.join(""))
         .evaluate(EvaluationType.REAL, _cm)
         .toString();
+  }
+
+  void saveData() {
+    List<String> calcList = List<String>.from(
+        state.map<String>((CalculatorModel calc) => jsonEncode(calc.toJson())));
+    sharedPreferences?.setStringList(storageKey, calcList);
+  }
+
+  void recoverData() {
+    try {
+      List<String> jsonData =
+          sharedPreferences?.getStringList(storageKey) ?? [];
+      List<CalculatorModel> calcList = List<CalculatorModel>.from(
+          jsonData.map<CalculatorModel>(
+              (String data) => CalculatorModel.fromJson(jsonDecode(data))));
+      if (calcList.isNotEmpty) {
+        state = calcList;
+      } else {
+        addCalculator();
+      }
+    } catch (e) {
+      addCalculator();
+    } finally {
+      ref.watch(selectedCalculatorIdProvider.notifier).setId(state[0].id);
+    }
+  }
+
+  void loadData(SharedPreferences sharedPreferences) {
+    this.sharedPreferences = sharedPreferences;
+    recoverData();
   }
 }
 
