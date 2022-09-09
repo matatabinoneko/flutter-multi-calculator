@@ -10,6 +10,7 @@ import 'organism/calcular_windows/view.dart';
 import 'organism/cauculator_buttons/view.dart';
 import 'package:calculator/static/size.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:go_router/go_router.dart';
 
 class CalculatorPage extends ConsumerWidget {
   CalculatorPage({Key? key}) : super(key: key);
@@ -51,8 +52,9 @@ class CalculatorPage extends ConsumerWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(SizeConfig.headerHeight),
         child: AppBar(
-          leading: const Icon(
-            Icons.settings,
+          leading: IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () => GoRouter.of(context).go('/setting'),
           ),
           actions: [
             IconButton(

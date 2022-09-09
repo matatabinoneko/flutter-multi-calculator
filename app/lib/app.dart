@@ -1,32 +1,21 @@
-import 'package:calculator/page/calculator_page/provider.dart';
-import 'package:calculator/page/calculator_page/view.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'global/provider/shared_preference_provider.dart';
 import 'static/theme.dart';
+import 'package:go_router/go_router.dart';
+import 'route/route.dart';
 
 class App extends ConsumerWidget {
   const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    AsyncValue<SharedPreferences> sharedPrefData =
-        ref.watch(sharedPrefProvider);
-    final calculatorList = ref.watch(calculatorListProvider.notifier);
+    final GoRouter _router = getRouter();
 
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Multi Calculator',
       theme: defaultTheme,
-      home: () {
-        return sharedPrefData.when(
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error: (err, stack) => Text('Error: $err'),
-            data: (data) {
-              calculatorList.loadData(data);
-              return CalculatorPage();
-            });
-      }(),
+      routeInformationParser: _router.routeInformationParser,
+      routerDelegate: _router.routerDelegate,
     );
   }
 }
