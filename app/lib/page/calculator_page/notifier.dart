@@ -86,7 +86,6 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
               equal) {
         return state[index].calcHist.join("");
       } else {
-        print(inputNumber);
         return inputNumber;
       }
     } else if (lastPushedButton == "C") {
