@@ -1,5 +1,6 @@
 import 'package:calculator/static/size.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import 'model.dart';
 import 'notifier.dart';
@@ -41,3 +42,5 @@ final isOpenedSlidingUpPanelProvider = Provider<bool>((ref) {
 });
 
 final scrollControllerProvider = Provider((_) => AutoScrollController());
+
+final panelControllerProvider = Provider((_) => PanelController());

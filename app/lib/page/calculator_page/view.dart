@@ -13,8 +13,7 @@ import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:go_router/go_router.dart';
 
 class CalculatorPage extends ConsumerWidget {
-  CalculatorPage({Key? key}) : super(key: key);
-  final PanelController _pc = PanelController();
+  const CalculatorPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,6 +25,7 @@ class CalculatorPage extends ConsumerWidget {
     final windowHeightSize = ref.watch(windowHeightSizeProvider.notifier);
     final isClosedSlidingUpPanel = ref.watch(isClosedSlidingUpPanelProvider);
     final scrollController = ref.watch(scrollControllerProvider);
+    final PanelController _pc = ref.watch(panelControllerProvider);
 
     void onPanelSlideHandler(double sizeRatio) {
       ref.watch(slidingUpPanelRatioProvider.notifier).state = sizeRatio;
@@ -35,9 +35,9 @@ class CalculatorPage extends ConsumerWidget {
       calculatorHeightSize.setState(calculatorHeight);
 
       final windowHeight = SizeConfig.minWindowHeight +
-          max(0, sizeRatio - SizeConfig.minCalculatorSnapPoint) /
-              (1 - SizeConfig.minCalculatorSnapPoint) *
-              (sizeConfig.maxWindowHeight - SizeConfig.minWindowHeight);
+          max(0, sizeRatio - sizeConfig.minCalculatorSnapPoint) /
+              (1 - sizeConfig.minCalculatorSnapPoint) *
+              (SizeConfig.maxWindowHeight - SizeConfig.minWindowHeight);
       windowHeightSize.setState(windowHeight);
 
       const scrollAnimationDuration = Duration(milliseconds: 1);
@@ -70,7 +70,7 @@ class CalculatorPage extends ConsumerWidget {
         controller: _pc,
         maxHeight: sizeConfig.maxCalculatorHeight,
         minHeight: SizeConfig.minCalculatorHeight,
-        snapPoint: SizeConfig.minCalculatorSnapPoint,
+        snapPoint: sizeConfig.minCalculatorSnapPoint,
         panel: const CalculatorButtons(),
         body: const CalculatorWindows(),
         collapsed: isClosedSlidingUpPanel

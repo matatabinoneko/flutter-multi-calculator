@@ -1,3 +1,5 @@
+import 'package:sliding_up_panel/sliding_up_panel.dart';
+
 import '../../molecule/calculator_window/view.dart';
 import '../../provider.dart';
 
@@ -22,6 +24,7 @@ class CalculatorWindows extends ConsumerWidget {
     final physics = isSlidingPanelOpened
         ? const NeverScrollableScrollPhysics()
         : const AlwaysScrollableScrollPhysics();
+    final PanelController _pc = ref.watch(panelControllerProvider);
 
     void deleteCalc(int index) {
       final id = calculatorList[index].id;
@@ -34,6 +37,7 @@ class CalculatorWindows extends ConsumerWidget {
 
       scrollController.scrollToIndex(index,
           preferPosition: AutoScrollPosition.begin);
+      _pc.animatePanelToSnapPoint();
     }
 
     void setName(int index, String name) {
