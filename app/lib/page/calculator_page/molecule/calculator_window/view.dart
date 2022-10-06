@@ -1,3 +1,4 @@
+import 'package:calculator/page/calculator_page/molecule/rename_widget/view.dart';
 import 'package:calculator/static/size.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -38,15 +39,7 @@ class CalculatorWindow extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(
-                width: sizeConfig.calculatorNameTextWidth,
-                child: TextField(
-                  controller: TextEditingController(text: name),
-                  obscureText: false,
-                  onSubmitted: setName,
-                  style: const TextStyle(color: Colors.white, fontSize: 24),
-                ),
-              ),
+              RenameWidget(setName: setName, name: name),
               IconButton(
                 icon: const Icon(
                   Icons.delete,
