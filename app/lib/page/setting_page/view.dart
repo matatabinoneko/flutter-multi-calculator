@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class SettingPage extends ConsumerWidget {
   SettingPage({Key? key}) : super(key: key);
@@ -13,26 +14,32 @@ class SettingPage extends ConsumerWidget {
     }
   }
 
+  Future<PackageInfo> _getPackageInfo() {
+    return PackageInfo.fromPlatform();
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-        appBar: AppBar(title: const Text("Setting Page")),
-        body: Container(
-          alignment: AlignmentDirectional.topCenter,
-          child: Column(children: [
-            InkWell(
-              onTap: () => {_launchUrl()},
-              child: const Padding(
-                padding: EdgeInsets.only(
-                  top: 20.0,
-                  bottom: 20.0,
-                ),
-                child: Text(
-                  '規約とプライバシーポリシー',
-                ),
-              ),
-            )
-          ]),
-        ));
+    return FutureBuilder<PackageInfo>(
+        future: _getPackageInfo(),
+        builder: (BuildContext context, AsyncSnapshot<PackageInfo> snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          final packageInfo = snapshot.data!;
+          return Scaffold(
+              appBar: AppBar(title: Text(packageInfo.appName)),
+              body: ListView(children: <Widget>[
+                ListTile(
+                    onTap: _launchUrl,
+                    leading: const Icon(Icons.person),
+                    title: const Text('規約とプライバシーポリシー')),
+                ListTile(
+                    title: Text(
+                  'version: ${packageInfo.version}',
+                  textAlign: TextAlign.center,
+                )),
+              ]));
+        });
   }
 }
