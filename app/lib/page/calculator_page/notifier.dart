@@ -58,7 +58,7 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
   }
 
   String getDisplayResult(int index) {
-    final result = doCalc(index).toString();
+    final result = limitDisplayDigits(result: doCalc(index).toString(), digitNum: 8);
     final operator = state[index].operator;
     final inputNumber = state[index].number;
     final String? lastPushedButton = state[index].pushedButtonHist.isEmpty
@@ -72,7 +72,7 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
       return result;
     } else if (_validOperators.contains(lastPushedButton)) {
       if ("*/".contains(lastPushedButton)) {
-        return "$inputNumber $operator";
+        return "${limitDisplayDigits(result: inputNumber, digitNum: 8)} $operator";
       } else {
         return "$result $operator";
       }
@@ -86,7 +86,6 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
               equal) {
         return state[index].calcHist.join("");
       } else {
-        print(inputNumber);
         return inputNumber;
       }
     } else if (lastPushedButton == "C") {
@@ -95,6 +94,53 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
       assert(false);
       return "";
     }
+  }
+
+String limitDisplayDigits({required String result, required int digitNum}) {
+    String sign = result.startsWith("-") ? "-" : "";
+    if (result.startsWith("-")) {
+      result = result.substring(1);
+    }
+
+    if (result.contains(".")) {
+      List<String> splittedResult = result.split(".");
+      if (splittedResult[0].length > digitNum) {
+        int exponent = splittedResult[0].length - 1;
+        String newIntegerPart = splittedResult[0][0];
+        String newDecimalPart = splittedResult[0].substring(1, digitNum);
+        String formattedResult = "$sign$newIntegerPart.${newDecimalPart}e$exponent";
+        return formattedResult;
+      } else if (splittedResult[0].length > 1 && result.length - 1 > digitNum) {
+        int exponent = splittedResult[0].length - 1;
+        String newIntegerPart = splittedResult[0][0];
+        int requiredDecimalNum = digitNum - splittedResult[0].length;
+        String newDecimalPart = splittedResult[0].substring(1) + splittedResult[1].substring(0, requiredDecimalNum);
+        String formattedResult = "$sign$newIntegerPart.${newDecimalPart}e$exponent";
+        return formattedResult;
+      } else if (result.length - 1 > digitNum) {
+        if (result.contains("e+")) {
+          String exponent = result.split("e+")[1];
+          String newIntegerPart = splittedResult[0];
+          String newDecimalPart = splittedResult[1].substring(0, digitNum - 1);
+          String formattedResult = "$sign$newIntegerPart.${newDecimalPart}e$exponent";
+          return formattedResult;
+        } else {
+          String newIntegerPart = splittedResult[0];
+          String newDecimalPart = splittedResult[1].substring(0, digitNum - 1);
+          String formattedResult = "$sign$newIntegerPart.$newDecimalPart";
+          return formattedResult;
+        }
+      }
+    } else {
+      if (result.length > digitNum) {
+        int exponent = result.length - 1;
+        String newIntegerPart = result[0];
+        String newDecimalPart = result.substring(1, digitNum);
+        String formattedResult = "$sign$newIntegerPart.${newDecimalPart}e$exponent";
+        return formattedResult;
+      }
+    }
+    return "$sign$result";
   }
 
   void reOrderCaluculator({required int oldIndex, required int newIndex}) {
@@ -282,7 +328,7 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
         calc = state[index].copyWith(
             number: state[index].number == '-0'
                 ? "-$input"
-                : "${state[index].number}$input",
+                : limitInputDigits(newNumber: "${state[index].number}$input", digitNum: 13),
             pushedButtonHist: pushedButtonHist);
       }
     } else if (state[index]
@@ -317,6 +363,15 @@ class CalculatorListNotifier extends StateNotifier<List<CalculatorModel>> {
       assert(false);
     }
     _changeState(index, calc!);
+  }
+
+  String limitInputDigits({required String newNumber, required int digitNum}) {
+    int numberDigit = newNumber.replaceAll(".", "").replaceAll("-", "").length;
+    if (numberDigit > digitNum) {
+      return newNumber.substring(0, newNumber.length - 1);
+    } else {
+      return newNumber;
+    }
   }
 
   // 電卓の演算子ボタン
